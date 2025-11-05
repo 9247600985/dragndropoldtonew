@@ -1,0 +1,115 @@
+<div id='develop' class="p-3 scrollableDiv">
+  <div class="panel panel-default mb-0 p-0" [hidden]="item.type==='loadForm'"
+  [ngClass]="[item.width?'col-sm-'+item.width:'col-sm-12']"
+      *ngFor="let item of controlType?.controls;let i=index">
+      <div class="panel-body p-0">    
+
+        <i class="fa fa-minus-circle text-danger text-white dismissQue f-15"
+                            (click)="dismissControl($event, item)"></i>
+          <!-- TOOLS BAR TO ADD CONTROL AT MIDDLE -->         
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a class="dropdown-item f-12 p-3" href="!#" *ngFor="let tool of toolTypes"
+                  (click)="createControlInMiddle($event, item, tool.type)">
+                  <i class="f-15 fa fa-{{tool.icon}}"></i>
+                  <b>{{tool.name | titlecase}}</b>
+              </a>
+          </div>         
+          <div class="col-sm-1 pt-3 queLabel">          
+            
+              <!-- REPRESENTS CURRENT ACTIVE CONTROL -->
+
+              <input type="checkbox" name="control" [id]='item.id' class="float-left mr-1 mt-1 mr-3"
+                  [checked]='item.checked' (change)='makeActiveControl($event, item)' />
+
+              <!-- EDITABLE CONTROL ID -->
+              <app-inline-edit class="f-12 breakWord" #que name="{{item.id}}"
+                  (actionEvent)='modifyOption($event, item, "", "question")'>
+                  {{item.id}}
+              </app-inline-edit>
+
+              <!-- CONTROL OPERATIONS SKIP/DISPLAY/SERVICE -->
+              
+              <div class="dropdown text-center mt-3">
+                  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fa fa-cog f-15 text-secondary"></i>
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item f-12 p-3" href="!#" *ngFor="let event of eventTypes" (click)='addCurrentEvent($event, item, event)'>{{event | titlecase}}</a>
+                  </div>
+              </div>
+          </div>
+          
+          <div class="pt-3 col-sm-11">
+              <!-- EDITABLE CONTROL QUESTION BLOCK -->
+              <div *ngIf="item.type!=='button' && item.type!=='loadForm'" class="question f-12"
+                  id='question{{i}}' (click)="openEditor($event, item, i);">
+                  <p><b class="e2e-inner-html-interpolated" [innerHTML]="item.label"></b></p>
+              </div>
+              <!-- EDITOR FOR QUESTION -->
+              <div class="">
+                  <button id='editorBtn{{i}}' type="button"
+                      class="editorBtn btn light-blue text-white d-none"
+                      (click)="getEditorText($event);hideEditor($event, item, i)">
+                      <i class="fa fa-check"></i>
+                  </button>
+                  <ejs-richtexteditor id='iframe{{i}}' class="d-none" [(value)]='item.ejsValue'
+                      [toolbarSettings]='tools'></ejs-richtexteditor>
+              </div>
+              <!-- BOX LAYOUT -->
+              <div class="col-md-12 col-sm-6 pl-0" *ngIf="item.defaultType==='container'">                 
+                 <div class="pl-0"
+                    [ngClass]="[sItem.width?'col-sm-'+(sItem.width/item.controls.length):'col-sm-12']"
+                    *ngFor="let sItem of item.controls;let idx=index">
+                    <div class="col-sm-1 pt-3 queLabel">
+                        <!-- REPRESENTS CURRENT ACTIVE CONTROL -->
+                        <input type="checkbox" name="control" [id]='sItem.id' class="float-left mr-1 mt-1 mr-3"
+                            [checked]='sItem.checked' (change)='makeActiveControl($event, sItem)' />
+          
+                        <!-- EDITABLE CONTROL ID -->
+                        <app-inline-edit class="f-12 breakWord" #que name="{{sItem.id}}"
+                            (actionEvent)='modifyOption($event, sItem, "", "question")'>
+                            {{sItem.id}}
+                        </app-inline-edit>
+          
+                        <!-- CONTROL OPERATIONS SKIP/DISPLAY/SERVICE -->
+                        
+                        <div class="dropdown text-center mt-3">
+                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-cog f-15 text-secondary"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item f-12 p-3" href="!#" *ngFor="let event of eventTypes" (click)='addCurrentEvent($event, sItem, event)'>{{event | titlecase}}</a>
+                            </div>
+                        </div>
+                    </div>                    
+                    <!-- EDITABLE CONTROL QUESTION BLOCK -->
+                    <div *ngIf="sItem.type!=='button' && sItem.type!=='loadForm'" class="question f-12"
+                        id='question{{idx}}' (click)="openEditor($event, sItem, i);">
+                        <p><b class="e2e-inner-html-interpolated" [innerHTML]="sItem.label"></b></p>
+                    </div>
+                    <!-- EDITOR FOR QUESTION -->
+                    <div class="">
+                        <button id='editorBtn{{idx}}' type="button"
+                            class="editorBtn btn light-blue text-white d-none"
+                            (click)="getEditorText($event);hideEditor($event, sItem, idx)">
+                            <i class="fa fa-check"></i>
+                        </button>
+                        <ejs-richtexteditor id='iframe{{idx}}' class="d-none" [(value)]='sItem.ejsValue'
+                            [toolbarSettings]='tools'></ejs-richtexteditor>
+                    </div>
+                    <app-widget [item]="sItem"></app-widget>                     
+                </div>
+              </div>
+              <!-- OTHER WIDGETS -->
+              <app-widget [item]="item" *ngIf="item.defaultType !=='container'"></app-widget>
+              <div class="clearfix"></div>
+              <!-- Control Settings -->
+              <div *ngFor="let actionEvent of actionEventSet">
+                  <app-event-mapper [eventAction]="actionEvent" [elementsArray]="frmMappingSet" [controls]='controlType.controls' [serviceData]="serviceData" *ngIf="actionEvent.controlId === item.id" (actionEvent)='onAcceptAction($event)'></app-event-mapper>
+              </div>              
+          </div>
+      </div>
+  </div>
+</div>

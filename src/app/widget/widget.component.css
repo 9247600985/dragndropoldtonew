@@ -1,0 +1,276 @@
+.secondary-color
+{
+    background-color: #6c757d;
+}
+
+.e-toolbar-wrapper
+{
+    display: contents !important;
+}
+
+.e-toolbar
+{
+    white-space: normal !important;
+}
+
+ul
+{
+    padding-left: 0;
+}
+
+ul li
+{
+    list-style: none;
+    padding: 7px;
+    cursor: pointer;
+    position: relative;
+}
+
+ul li i
+{
+    width:20px;
+}
+
+h4
+{
+    font-weight: bold;
+}
+
+.panel-body ul.conditionsBlock
+{
+    display: flex;
+}
+
+.panel-body ul.conditionsBlock>li.right:last-child
+{
+    position: absolute;
+    right: 15px;
+}
+
+.panel-body ul.conditionsBlock>li.right:nth-last-child(2)
+{
+    position: absolute;
+    right: 45px;
+}
+
+.panel-body ul.conditionsBlock>li.right:nth-last-child(3)
+{
+    position: absolute;
+    right: 15px;
+}
+
+.panel-body>div:first-child
+{
+    word-wrap: break-word;
+}
+
+.panel-body>div:last-child
+{
+    border-left: 1px solid #f5f5f5;
+}
+
+.panel:first-child
+{
+    border-top-left-radius: 5px !important;
+    border-top-right-radius: 5px !important;
+}
+
+.panel:last-child
+{
+    border-bottom-left-radius: 5px !important;
+    border-bottom-right-radius: 5px !important;
+}
+
+.panel .addQue
+{
+    display: none;
+    position: absolute;
+    right: -8px;
+    top: -8px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* .questionDiv .panel .addQueBottom
+{
+    display: none;
+    cursor: pointer;
+    position: absolute;
+    right: -8px;
+    bottom: -8px;
+    z-index: 10;
+} */
+
+.panel .dismissQue
+{
+    position: absolute;
+    right: -8px;
+    /* top: calc(45% - 6px); */
+    display: none;
+    bottom: -8px;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.panel
+{
+    border-bottom: 0;
+    border-radius: 0 !important;
+    position: relative;
+}
+
+.panel:hover>.panel-body>.dismissQue,
+.panel:hover>.panel-body>.addQue,
+.panel:hover>.panel-body>.addQueBottom
+{
+    display: block;
+}
+
+.panel .question:hover, .panel .option:hover, .panel .queLabel:hover
+{
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+.toolBar
+{
+    height:100vh;
+    border-left: 1px solid rgba(0,0,0,0.145);
+    overflow-y: scroll;
+}
+
+.toolBar h4
+{
+    border-radius: 2px;
+}
+
+.toolBar ul li
+{
+    font-size: 12px;
+}
+
+.editorBtn
+{
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background: #fafafa;
+    border: 2px solid #efefef;
+    border-bottom: 0;
+    margin-bottom: -2px;
+}
+
+.blank>img
+{
+    -webkit-filter: brightness(100);
+    -moz-filter: brightness(100);
+    -o-filter: brightness(100);
+    filter: brightness(100);
+    border: 1px solid rgba(0,0,0,.15);
+}
+
+.modal-header
+{
+    border-bottom: none;
+}
+
+.modal-body>.col-sm-12>div
+{
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal-body i{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1px;
+    box-shadow: 0px 0px 5px 0px rgba(0,0,0,.145);
+    border-radius: 50px;
+    display: none;
+}
+
+.modal-body .active
+{
+    border: 1px solid rgba(0,0,0,.105);
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.145);
+}
+
+.modal-body .active>i
+{
+    display: block !important;
+}
+
+/* table tbody tr td{
+    padding: 0;
+} */
+
+.dropdown-item
+{
+    padding: .5rem 1.5rem .5rem 3rem !important;
+    position: relative;
+    color: #555555;
+}
+
+.dropdown-item>i
+{
+    position: absolute;
+    top: 6px;
+    left: 8px;
+}
+
+.dropdown-toggle
+{
+    padding: 0 !important;
+}
+
+.dropdown-toggle:after { content: none !important }
+
+#ddlSkipTo option
+{
+    font-weight: bold !important;
+}
+.breakWord
+{
+    word-break: break-all !important;
+}
+
+.card-body
+{
+    visibility: visible !important;
+}
+
+.subMenu
+{
+    width: 150px;
+  background-color: #ffffff;
+  display: none;
+  border: 1px solid;
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+  position:absolute;
+}
+
+li.dropdown-submenu:hover>.subMenu
+{
+  display: block;
+}
+
+.dropdown-submenu {
+  position: relative;
+}
+
+/* .dropdown-submenu {
+    position: relative;
+  }
+  
+  .dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+  }
+
+  a.test:hover>ul.dropdown-menu
+  {
+    display: block;
+  } */

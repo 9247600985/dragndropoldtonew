@@ -1,0 +1,27 @@
+p{
+  font-size: 15px;
+  text-align: justify;
+  padding: 0 15px;
+}
+
+ul{
+  margin-right: 15px;
+}
+
+ul ul
+{
+  margin-top: 15px;
+  padding-left: 20px;
+}
+
+ul li
+{
+  text-align: justify;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+code{
+  color:#fff;
+  background-color: #6C8FEE;
+}

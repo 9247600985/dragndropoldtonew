@@ -1,0 +1,20 @@
+<!-- The Modal -->
+<div class="modal sticky" id="mdlPopup">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title"><i class='fas fa-info'></i> Do you like to add your diagnostic reports</h4>
+          <button type="button" class="close d-none" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <a class="btn btn-danger"  (click)='navigateTo(0)' data-dismiss="modal">Close</a>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)='navigateTo(1)'>Proceed</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>

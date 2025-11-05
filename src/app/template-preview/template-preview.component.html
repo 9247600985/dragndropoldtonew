@@ -1,0 +1,62 @@
+<app-patient [patient]='patProfile' *ngIf="isDisplayPatient()"></app-patient>
+<a class="f-15 float-left mr-3" 
+[ngClass]="[isDisplayBack?'':'d-none']"
+[routerLink]="['/template']" [state]="{ actions: [], deptCode: mappedDeptCode, sectionId: mappedSectionCode, template:form, templates: stateData?.templates, departments: departments}"><i
+    class="fas fa-arrow-left"></i></a>
+<div class="container-fluid scrollableDiv">
+    <div class="row">
+        <div class="mb-4 form-group" [hidden]='!item.canShow'
+        [ngClass]="[item.width?'col-sm-'+item.width+' '+item.styleClasses:'col-sm-12 '+item.styleClasses]"
+        [ngStyle]="item.styleSource"
+            *ngFor="let item of form?.controls;let i=index">
+            <label *ngIf="item.needLabel === true && item.defaultType !=='line'&& item.defaultType !=='popup'&& item.defaultType!=='table' && item.type!=='button' && item.type!=='loadForm' && item.type!=='text' && containers.includes(item.defaultType) === false" class="control-label"
+                [innerHtml]="item.label | keepHtml"></label>
+            <div *ngIf="item.defaultType==='container'">
+                <div *ngFor="let sItem of item.controls;let idx=index1"
+                [ngStyle]="sItem.styleSource" 
+                [ngClass]="[sItem.width?'col-sm-'+sItem.width+' '+sItem.styleClasses:'col-sm-12 '+sItem.styleClasses]">
+                    <label *ngIf="item.needLabel === true && sItem.defaultType!=='table' && sItem.type!=='button' && sItem.type!=='loadForm' && sItem.type!=='text' && containers.includes(sItem.defaultType) === false" class="control-label"
+                [innerHtml]="sItem.label | keepHtml"></label>
+                    <app-widget [item]="sItem" (actionEvent)="widgetActionEvent($event)"></app-widget>
+                </div>
+            </div>
+            <!-- POPUP WIDGET -->
+            <div class="col-md-12 col-sm-6 p-0" *ngIf="item.options?.length === 0 && item.defaultType==='popup'">
+                <jw-modal id="custom-modal-2">
+                    <div class="panel panel-default">
+                        <div class="panel-heading d-flex flex-row">
+                            <b class="w-100 f-15">Panel with panel-primary class</b>
+                            <button type="button" class="text-white btn light-blue" (click)="closePopup()">Close</button>
+                        </div>
+                        <div class="panel-body">
+                            <app-form-template [item]="item" [templateData]="stateData" *ngIf="item.defaultType==='popup' && item.canShow === true"></app-form-template>
+                        </div>
+                      </div>
+                </jw-modal>
+            </div>            
+            <app-widget [item]="item" (actionEvent)="widgetActionEvent($event)" *ngIf="item.defaultType !=='popup'"></app-widget>
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal show" id="mdlDrawingTool" data-backdrop='static' *ngIf="isShowPopup">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header light-blue">
+                <h4 class="modal-title text-white">Drawing Tool</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="isShowPopup=false" >
+                    <i class="fas fa-times text-white"></i>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <app-drawing-tool [image]="imageSrc" [id]="imageId" (downloadEvent)='getImageFromDrawingTool($event)'></app-drawing-tool>
+            </div>
+
+        </div>
+    </div>
+</div>

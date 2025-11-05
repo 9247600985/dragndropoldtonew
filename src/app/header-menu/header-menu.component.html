@@ -1,0 +1,22 @@
+<ul class="navbar-nav float-right">
+    <!--<li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+          <i class="fa fa-bell"></i>
+          <small class="badge blue">435</small>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"><i class='fas fa-share-alt'></i></a>
+      </li>-->
+    <!-- Dropdown -->
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+        <i class="fa fa-user"></i>
+      </a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" (click)="editRegister()">Profile</a>
+       <!-- <a class="dropdown-item" href="#">Settings</a>-->
+        <a class="dropdown-item" (click)="logout()">Logout</a>
+      </div>
+    </li>
+  </ul>

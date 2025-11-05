@@ -1,0 +1,122 @@
+.scrollableDiv
+{
+  height:100vh;
+}
+.txt-body{
+  height: 10rem !important;
+}
+.secondary-color
+{
+    background-color: #6c757d !important;
+}
+.button
+{
+    padding: 10px 50px 10px 50px !important;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+  }
+
+  ul li
+  {
+    list-style: none;
+    display: inline-grid;
+    margin-right: 15px;
+  }
+
+  ul li a
+  {
+      text-transform: capitalize;
+      font-size: 12px;
+      padding: 7px 15px;
+      border-radius: 50px;
+      margin: 5px;
+      font-weight: bold;
+
+  }
+
+  ul li a i
+  {
+    margin-left: 7px;
+    margin-right:0;
+    color: white;
+    vertical-align: middle;
+  }
+
+  .example-list {
+    /* width: 500px; */
+    max-width: 100%;
+    /* border: solid 1px #ccc; */
+    min-height: 60px;
+    display: block;
+    background: white;
+    border-radius: 4px;
+    /* overflow: hidden;   */
+  }
+  
+  .drag-icon {
+    position: relative;
+    background-color: #6C8FEE;
+    color: #fff;
+    text-align: center;
+    padding: 8px;
+    margin-right: 15px;
+  }
+  .drag-icon i {
+    cursor: move;
+  }
+  i.disable{
+    position: absolute;
+    cursor: not-allowed !important;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    color: transparent;
+  }
+
+  .example-box:last-child{
+    border-bottom: solid 1px #ccc;
+  }
+
+  .example-box {
+    /* padding: 20px 10px; */
+    border: solid 1px #ccc;
+    border-bottom: none;
+    color: rgba(0, 0, 0, 0.87);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+    background: white;
+    font-size: 14px;
+    padding-right: 15px;
+  }
+  
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-placeholder {
+    opacity: 0;
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  /* .example-box:last-child {
+    border: none;
+  } */
+  
+  .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  

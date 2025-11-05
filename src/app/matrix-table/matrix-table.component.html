@@ -1,0 +1,170 @@
+<!-- MATRIX TABLE -->
+<div class="form-group mb-3 table-responsive" *ngIf="item.type==='matTable'">
+    <div class="col-sm-12">
+        <input type="checkbox" (change)='onChangeTableHeader($event, item)'> Require table header                                        
+    </div>
+    <div class="col-sm-12">
+        <input type="checkbox" (change)='onChangeTableBorder($event, item)'> require Table Border
+    </div>    
+    <table class="table table-bordered f-12 text-left">
+        <thead [hidden]='!item.reqTabHead'>
+            <tr>
+                <th class="light-blue text-white" *ngFor="let mat of Object.keys(item.controls?item.controls[0]:item.matTable[0]).sort()">
+                    <app-inline-edit #option class="f-12 text-white"
+                        name="{{(item.controls?item.controls[0]:item.matTable[0])[mat].headerName}}"
+                        (actionEvent)='modifyOption($event, item, mat, "thead")'>
+                        <b class="text-white">{{option.name}}</b>
+                    </app-inline-edit>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of item.controls?item.controls:item.matTable;let rowIndex = index">
+                <td *ngFor="let prop of Object.keys(item.controls?item.controls[0]:item.matTable[0]); let tabCol = index"
+                    [ngStyle]="{'width': (100/Object.keys(item.controls?item.controls[0]:item.matTable[0]).length)+'%'}"> 
+                    <p>{{JSON.stringify(prop)}}</p>                                                   
+                    <button class="btn btn-default dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="fa fa-plus-circle text-light-blue f-15"></i>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item f-12 p-3 font-weight-bold" href="!#"
+                            *ngFor="let tool of toolTypes"
+                            (click)="createControlInCell($event, item, tool.type, rowIndex, tabCol, prop, tool.content)"
+                            [hidden]="tool.type === 'matTable' || tool.type === 'table' || tool.type === 'button'">
+                            <i class="f-15 fa fa-{{tool.icon}}"></i>
+                            {{tool.name | titlecase}}
+                        </a>
+                    </div>
+
+                    <!-- add controls in each cell -->
+                    <!-- REPRESENTS CURRENT ACTIVE CONTROL -->
+                    <input type="checkbox" *ngIf="row[prop].control?.id" name="control"
+                        [id]='row[prop].control?.id' class="float-left mr-1 mt-1 mr-3"
+                        [checked]='row[prop].control?.checked'
+                        (change)='makeActiveControl($event, row[prop].control)' />
+
+                    <!-- EDITABLE CONTROL ID -->
+                    <!--<app-inline-edit class="f-12 breakWord float-right" #que
+                        name="{{row[prop].control?.id}}"
+                        (actionEvent)='modifyOption($event, row[prop].control, "", "question")'>
+                        {{row[prop].control?.id}}
+                    </app-inline-edit>-->
+
+                    <!-- text -->
+                    <app-inline-edit #option
+                        *ngIf="row[prop].control?.defaultType === 'text'" class="f-12"
+                        name="{{row[prop].control?.label}}"
+                        (actionEvent)='modifyOption($event, row[prop].control, "", "tabCellText")'>
+                        <b [innerHTML]='option.name'></b>
+                    </app-inline-edit>
+
+                    <!-- AUTO COMPLETE -->
+                    <app-auto-fill *ngIf="row[prop].control?.type==='autoComplete'"  [data]="toolTypes" (actionEvent)="getSelectedItem($event)"></app-auto-fill>
+
+                    <!-- input -->
+                    <div class="" *ngIf="row[prop].control?.defaultType==='input'">
+                        <input [type]='row[prop].control?.type' [id]='row[prop].control?.id'
+                            [name]='row[prop].control?.name' class="form-control"
+                            [min]='row[prop].control?.min' [max]='row[prop].control?.max'
+                            [step]='row[prop].control?.step'
+                            [disabled]="row[prop].control?.type!=='file'"
+                            (change)="getBase64($event, row[prop].control)" />
+
+                        <!-- IMAGE -->
+                        <div class="form-group mb-3" style="width:100%;height:auto;"
+                            *ngIf="row[prop].control?.type==='file' && row[prop].control?.value!=''">
+                            <img [src]="row[prop].control?.value" width='100%'
+                                class="img-rounded img-responsive" alt='form image'>
+                        </div>
+                    </div>
+
+                    <!-- textarea -->
+                    <div class="col-md-12 col-sm-6 p-0"
+                        *ngIf="row[prop].control?.options?.length === 0 && row[prop].control?.type==='textarea'">
+                        <textarea disabled [id]='row[prop].control?.id'
+                            [name]='row[prop].control?.name'
+                            class="form-control"></textarea>
+                    </div>
+
+                    <!-- dropdown -->
+                    <div class="form-group"
+                        *ngIf="row[prop].control?.type==='dropdown' && row[prop].control?.options?.length>0">
+                        <div class="pt-2 pb-2"
+                            *ngFor="let opt of row[prop].control?.options; let i = index">
+                            <i class="fa fa-times-circle text-danger mt-2 mr-5 float-left"
+                                (click)="removeOption($event, row[prop].control, opt)"></i>
+
+                            <app-inline-edit #option class="f-12" name="{{opt.value}}"
+                                (actionEvent)='modifyOption($event, row[prop].control, opt, "tabCell")'>
+                                {{option.name | titlecase}}
+                            </app-inline-edit>
+                        </div>
+                        <button *ngIf="row[prop].control?.type!=='condition'" type="button"
+                            class="btn light-blue text-white"
+                            (click)="addNewOptionInCell($event, row[prop].control, rowIndex, tabCol)">Add
+                            new option</button>
+                    </div>
+
+                    <!-- condition -->
+                    <div class="form-group"
+                        *ngIf="row[prop].control?.type==='condition' && row[prop].control?.options?.length>0">
+                        <div class="form-check-inline pt-2 pb-2"
+                            style="display: inline-flex"
+                            *ngFor="let opt of row[prop].control?.options; let i = index">
+                            <!-- -inline -->
+                            <i *ngIf="row[prop].control?.type!=='condition'"
+                                class="fa fa-times-circle text-danger mt-2 mr-5"
+                                (click)="removeOption($event, row[prop].control, opt)"></i>
+
+                            <input *ngIf="row[prop].control?.type==='condition'"
+                                class="form-check-input" type="radio"
+                                name="{{row[prop].control?.name}}" id='{{opt.id}}'
+                                value='{{opt.value}}' [checked]='opt.defaultSelect'
+                                (change)='checkChanged($event, row[prop].control, opt)'>
+                            <app-inline-edit #option class="f-12" name="{{opt.value}}"
+                                (actionEvent)='modifyOption($event, row[prop].control, opt, "option")'>
+                                {{option.name | titlecase}}
+                            </app-inline-edit>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group"
+                        *ngIf="row[prop].control?.type!=='dropdown' && row[prop].control?.type!=='condition' && row[prop].control?.options?.length>0">
+                        <div class="form-check-inline pt-2 pb-2"
+                            [ngStyle]="{'display': item.alignment==='horizontal'?'inline-flex': 'flex'}"
+                            *ngFor="let opt of row[prop].control?.options; let i = index">
+                            <!-- -inline -->
+                            <i *ngIf="row[prop].control?.type!=='condition'"
+                                class="fa fa-times-circle text-danger mt-2 mr-5"
+                                (click)="removeOption($event, row[prop].control, opt)"></i>
+                            <input *ngIf="row[prop].control?.type!=='condition'"
+                                class="form-check-input" type="{{row[prop].control?.type}}"
+                                name="{{row[prop].control?.name}}" id='{{opt.id}}'
+                                value='{{opt.value}}' [checked]='opt.defaultSelect'
+                                (change)='checkChanged($event, row[prop].control, opt)'>
+                            <app-inline-edit #option class="f-12" name="{{opt.value}}"
+                                (actionEvent)='modifyOption($event, row[prop].control, opt, "option")'>
+                                {{option.name | titlecase}}
+                            </app-inline-edit>
+
+                            <!-- </label> -->
+                        </div>
+                        <button *ngIf="row[prop].control?.type!=='condition'" type="button"
+                            class="btn light-blue text-white"
+                            (click)="addNewOptionInCell($event, row[prop].control, rowIndex, tabCol)">Add
+                            new option</button>
+                    </div>
+                    <!-- add controls in each cell -->
+                    <!-- CUSTOM WIDGET -->
+                    <div class="col-md-12 col-sm-6 p-0"
+                        *ngIf="row[prop].control.options?.length === 0 && row[prop].control.defaultType==='custom'" [innerHtml]="row[prop].control.text | safeHtml">
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

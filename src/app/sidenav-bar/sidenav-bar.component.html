@@ -1,0 +1,41 @@
+<div class="border-right" id="sidebar-wrapper">
+  <div class="sidebar-heading">
+    <div class='pt-3 userDiv light-blue' align='center' *ngIf="isShowProfile()">
+        <img [src]="url" width='70px' height='70px' />
+        <p class="p-3 m-0 aHand" (click)="navigateToProfile()"><b class="text-white">{{userFullName | titlecase}}</b></p>
+    </div>
+  </div>
+  <div class='left-panel'>
+  <div *ngFor="let menuItem of menuItems">
+  <span class="menuHeader" *ngIf="menuItem.routes.length > 0">{{menuItem.title | uppercase}}</span>
+  <ul class="list-group list-group-flush">
+    <li *ngFor="let route of menuItem.routes">
+      <a routerLink="{{route.path}}"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{exact: true}"
+      [ngClass]="{'active': route.selected}"
+      [style.pointer-events]="route.selected ?'none':'auto'"
+      [state]="{routeId : route.state}"
+      class="list-group-item list-group-item-action"
+      (click)="setActiveMenu(route)">
+        <i class="fas fa-{{route.icon}}"></i>
+        {{route.title}}
+      </a>
+    </li>
+
+  </ul>
+</div>
+<div class="poweredBy border">
+  <p class="f-15 menuHeader">Powered by</p>
+  <div  align='center'>
+    <a href='http://www.prosoftdata.in' target='_blank' *ngIf="isGlobal === true">    
+        <p class="f-15"><img src='./assets/images/prosoft.png' width="30" height="30" class='ml-3' /><b> Prosoft Data Systems </b></p>
+    </a>
+    <p class="f-15" *ngIf="isGlobal === true"><b>&</b></p>
+    <a href='http://www.thiragatisoft.tk' target='_blank'>
+        <p class="f-15"><img src='./assets/images/t1.png' width="30" height="30" class='ml-3' /><b> Thiragati Soft </b></p>
+    </a>
+  </div>  
+</div>
+</div>
+</div>

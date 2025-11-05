@@ -1,0 +1,28 @@
+<div class="row symptom">
+  <div class="form-group col-sm-12">
+    <div class="ng-autocomplete">
+      <ng-autocomplete [data]="data" [initialValue]='selectedValue' [searchKeyword]="keyword" placeHolder="placeholder"
+        (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)'
+        historyIdentifier="" [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate" (keyup.enter)="keyPressItem($event)">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplate let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFoundTemplate2" (click)="clickNotFound($event)"></div>
+      </ng-template>
+    </div>
+  </div>
+  <!--<div class="form-group selectedSymptoms">
+    <ul>
+      <li *ngFor="let item of selectedSymptoms">
+        <a href="#!" class='light-blue text-white' (click)="removeItemfromSymptoms($event, item)">
+          {{item.name}}
+          <i class="fas fa-times"></i>
+        </a>
+      </li>
+    </ul>
+  </div>-->
+</div>

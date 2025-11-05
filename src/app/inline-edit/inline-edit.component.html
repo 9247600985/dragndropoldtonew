@@ -1,0 +1,11 @@
+<div (click)="onClick($event)" [hidden]="isEditing">
+    <ng-content class="f-15"></ng-content>
+  </div>
+  <div [hidden]="!isEditing">
+    <div class="input-container">
+        <input #editField [(ngModel)]="name" type="text" class="input-field" />
+        <button type="button" class="btn light-blue text-white" (click)="onClick($event)">
+            <i class="fa fa-check icon f-15"></i>
+        </button>
+    </div>
+  </div>

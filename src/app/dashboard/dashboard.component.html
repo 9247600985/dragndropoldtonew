@@ -1,0 +1,261 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 mt-2">
+      <div class="col-sm-12 mt-2" align='right'>
+          <!--<span class="btn btn-secondary" (click)="navigateApp($event)"><i
+            class="fa fa-plus f-15 text-white"></i> Create App</span>-->
+            <div class="btn-group" role="group" aria-label="form buttons">
+              <select class="form-control condition-control" (change)="selectCustomer($event)">
+                  <option value="" selected>Choose Customer</option>
+                  <option *ngFor="let item of customers" [value]="item.CUST_ID">{{item. CUST_NAME}}</option>
+              </select>
+              &nbsp;
+              <button type="button" class="btn btn-secondary btn-lg" (click)="navigateApp($event)"><i
+                      class="fa fa-plus"></i> Create App</button>                               
+          </div>            
+      </div>
+    </div>
+  </div>
+    <div class="row">
+      <div class="col-md-3 col-sm-6" *ngFor="let item of apps">
+        <div class="detail-card aHand" (click)="openApp(item)">
+        <div class="icon">
+          <i class="fa fa-desktop fa-3x red text-white"></i>
+        </div>
+        <!--<div class="content">
+          <div class="f-15 mt-2">
+            <div class="dropdown mt-3">                
+                <button class="btn btn-default dropdown-toggle f-15" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-cog f-15 text-secondary mr-2"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a *ngFor="let acton of appActions" class="dropdown-item f-12 p-3" 
+                        (click)="addAppAction($event, acton.id, item)">
+                        <i class="fa {{acton.icon}} f-15 fa-rotate-90 text-success"></i>
+                        {{acton.desc}}
+                    </a>
+                </div>
+            </div>
+          </div>--> 
+          <p class="f-15 mt-3">
+            <small class="labelName text-muted">&nbsp;</small>            
+          </p>
+          <!--<p>
+            <small class="labelName text-muted">&nbsp;</small>            
+          </p>
+          <p>
+            <strong class="count">&nbsp;</strong>
+          </p>-->         
+        <!--</div>-->
+        <div class="detail-card-footer">
+          <span class="">{{item.APP_NAME}}</span>
+        </div>
+      </div>
+      </div>
+
+      <!--<div class="col-md-3 col-sm-6">
+          <div class="detail-card">
+          <div class="icon">
+            <i class="fa fa-stethoscope fa-3x green text-white"></i>
+          </div>
+          <div class="content">
+            <p>
+              <small class="labelName text-muted">User Space</small>
+            </p>
+            <p>
+              <strong class="count">49</strong>
+            </p>
+          </div>
+          <div class="detail-card-footer">
+            <span class="">footer content</span>
+          </div>
+        </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6">
+            <div class="detail-card">
+            <div class="icon">
+              <i class="fa fa-user-md fa-3x red text-white"></i>
+            </div>
+            <div class="content">
+              <p>
+                <small class="labelName text-muted">User Space</small>
+              </p>
+              <p>
+                <strong class="count">49</strong>
+              </p>
+            </div>
+            <div class="detail-card-footer">
+              <span>footer content</span>
+            </div>
+          </div>
+          </div>
+
+          <div class="col-md-3 col-sm-6">
+              <div class="detail-card">
+              <div class="icon">
+                <i class="fa fa-wheelchair fa-3x blue text-white"></i>
+              </div>
+              <div class="content">
+                <p>
+                  <small class="labelName text-muted">User Space</small>
+                </p>
+                <p>
+                  <strong class="count">49</strong>
+                </p>
+              </div>
+              <div class="detail-card-footer">
+                <span class="">footer content</span>
+              </div>
+            </div>
+            </div>-->
+    </div>
+
+    <!--<div class="row">
+      <div class="col-sm-4">
+        <div class="detail-card">
+          <div class="header green">
+            <i class="fa fa-heart-beat"></i>
+          </div>
+          <div class="content">
+            <p class="content-header">
+                Content 1
+            </p>
+            <p class="context-text">Content block 1</p>
+          </div>
+          <div class="detail-card-footer">
+            <span>Compain 2 weeks ago</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-4">
+          <div class="detail-card">
+            <div class="header blue">
+              <i class="fa fa-heart-beat"></i>
+            </div>
+            <div class="content">
+              <p class="content-header">
+                  Content 2
+              </p>
+              <p class="context-text">Content block 2</p>
+            </div>
+            <div class="detail-card-footer">
+              <span>Compain 2 weeks ago</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="detail-card">
+              <div class="header yellow">
+                <i class="fa fa-heart-beat"></i>
+              </div>
+              <div class="content">
+                <p class="content-header">
+                  Content 3
+                </p>
+                <p class="context-text">Content block 3</p>
+              </div>
+              <div class="detail-card-footer">
+                <span>Compain 2 weeks ago</span>
+              </div>
+            </div>
+          </div>
+    </div>-->
+
+    <!--<div class="row">
+      <div class="col-sm-12 col-md-6">
+        <div class="detail-card">
+          <div class="header red">
+            <caption class="caption">Consultation Details</caption>
+            <p>Doctor Consultations</p>
+          </div>
+          <div class="content">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Name</th>
+                  <th>Doctor</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items; let i=index;">
+                <td>{{i+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.doctor}}</td>
+                <td>
+                  <i class="fa fa-pencil fa-1x text-red"></i>
+                  <i class="fa fa-trash fa-1x text-green"></i>
+                </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6">
+          <div class="detail-card">
+            <div class="header green">
+              <caption class="caption">Future Consultations</caption>
+              <p>Consultations</p>
+            </div>
+            <div class="content">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Doctor</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of items; let i=index;">
+                  <td>{{i+1}}</td>
+                  <td>{{item.name}}</td>
+                  <td>{{item.doctor}}</td>
+                  <td>
+                    <i class="fa fa-pencil fa-1x text-red"></i>
+                    <i class="fa fa-trash fa-1x text-green"></i>
+                  </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+    </div>-->
+  </div>
+  <div class="modal show" id="mdlImportTemplate" data-backdrop="static" *ngIf="isShowImportTemplate">
+    <div class="modal-dialog">
+        <div class="modal-content light-green">
+
+            <!-- Modal Header -->
+            <div class="modal-header secondary-color">
+                <h3 class="modal-title text-white">Templates</h3>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                
+                  <div class="form-group">
+                    <label class="control-label col-sm-6 mt-3">Password</label>
+                    <div class="col-sm-6">
+                        <input #appPassCode type="password" class="form-control" />
+                    </div>
+                </div>
+                
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-secondary" (click)="closeLogin()">Cancel</button>
+                <button type="button" class="btn btn-lg btn-primary"
+                    (click)='onLoginApp($event, appPassCode.value)'>Login</button>
+            </div>
+
+        </div>
+    </div>
+</div>  

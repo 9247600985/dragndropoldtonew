@@ -1,0 +1,65 @@
+<!-- MATRIX ROW/COLUMNS Modal -->
+<div class="modal show" id="mdlMatrixTable" data-backdrop="static">
+  <div class="modal-dialog">
+      <div class="modal-content light-green">
+
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h3 class="modal-title text-light-blue">Table Attributes</h3>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+              <div class="col-sm-12">
+                  <div class="form-group">
+                      <label class="control-label">Columns</label>
+                      <div>
+                          <input type="number" class="form-control" [value]='txtTabColumns' />
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label class="control-label">Rows</label>
+                      <div>
+                          <input type="number" class="form-control" [value]='txtTabRows' />
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="form-check-inline">
+                          <label class="form-check-label" for="tblBorder">
+                              <input type="checkbox" class="form-check-input" (change)="onChangeTableBorder($event)"
+                                  name="tblBorder" value="tblBorder">Require table border
+                          </label>
+                      </div>
+                      <div class="form-check-inline">
+                          <label class="form-check-label" for="tblHead">
+                              <input type="checkbox" class="form-check-input" (change)="onChangeTableHeader($event)"
+                                  name="tblHead" value="tblHead">Require table header
+                          </label>
+                      </div>
+                      <input type="text" id='controlIndex' class="d-none" [value]="controlIndex"/>
+                      <div class="form-check-inline float-right" [hidden]='!reqTabHead'>
+                          <table class="table table-bordered table-striped">
+                              <thead>
+                                  <tr>
+                                      <th class="text-white secondary-color text-capitalize">header 1</th>
+                                      <th class="text-white secondary-color text-capitalize">header 2</th>
+                                  </tr>
+                              </thead>
+                          </table>
+                      </div>
+                  </div>
+              </div>
+
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-lg btn-secondary" data-dismiss="modal"
+                  (click)='onSubmitFormTypeSelection($event)'>Cancel</button>
+              <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal"
+                  (click)='onSubmitTableModal($event)'>Continue</button>
+          </div>
+
+      </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="speech light-blue"
+[ngClass]="{'active' : !voiceActiveSectionDisabled}"
+>
+  <i *ngIf="!voiceActiveSectionDisabled" class="icon fa-2x fa fa-times p-3 text-white" (click)="closeVoiceRecognition()"></i>
+  <i class='close-speech fa fa-times text-white'></i>
+  <i *ngIf="voiceActiveSectionDisabled; else voicesection;" 
+  class="icon fa-2x fa fa-microphone p-3 text-white"
+  (click)="startVoiceRecognition()"></i>
+
+  <!-- <span class='text-white f-15'>Start Listening...</span> -->
+  <ng-template #voicesection>
+  <ng-container *ngIf="!voiceActiveSectionError; else failure">
+    <ng-container *ngIf="voiceText; else start">
+        <span class="f-15 text-white">{{voiceText}}</span>
+    </ng-container>
+    <ng-template #start>
+      <ng-container
+        *ngIf="voiceActiveSectionListening; else beginning">
+        <span class="f-15 text-white">Listening...</span>
+      </ng-container>
+      <ng-template #beginning>
+        <span class="f-15 text-white">Start talking...</span>
+      </ng-template>
+    </ng-template>
+  </ng-container>
+  <ng-template #failure>
+    <span class="f-15 text-white">Didn't catch that</span>
+  </ng-template>
+</ng-template>
+</div>
+
+
+<!-- <div *ngIf="voiceActiveSectionDisabled; else voicesection;">
+  <button type="button" id='btnRecord' class='btn light-blue text-white f-15' (click)="startVoiceRecognition()">
+    <i class="fa fa-microphone p-3"></i>
+  </button>
+</div>
+<ng-template #voicesection>
+  <div>
+    <button (click)="closeVoiceRecognition()" id='btnListen' class='btn light-blue text-white f-15'>
+      <i class="fa fa-times p-3"></i>
+
+      <ng-container *ngIf="!voiceActiveSectionError; else failure">
+        <ng-container *ngIf="voiceText; else start">
+            <span class="text-white">{{voiceText}}</span>
+        </ng-container>
+        <ng-template #start>
+          <ng-container
+            *ngIf="voiceActiveSectionListening; else beginning">
+            <span class="text-white">Listening...</span>
+          </ng-container>
+          <ng-template #beginning>
+            <span class="text-white">Start talking...</span>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+      <ng-template #failure>
+        <span class="text-white">Didn't catch that</span>
+      </ng-template>
+    </button>
+    <button (click)="startVoiceRecognition()" class='d-none btn light-blue text-white f-15'>Restart</button>
+  </div>
+</ng-template> -->

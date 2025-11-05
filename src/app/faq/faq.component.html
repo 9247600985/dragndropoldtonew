@@ -1,0 +1,319 @@
+<app-jumbotron [data]="jumbotron" (actionEvent)="onNavigateBack($event)"></app-jumbotron>
+<br/>
+<div class="container scrollableDiv">
+  <ul>
+    <li>
+      <b>
+        Consultation:
+      </b>
+      <br/>
+      <button (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#demo" class="btn-defualt btn">1.	How to book a doctor consultation?</button>
+
+      <div id="demo" class="collapse">
+        You can book an appointment with the desired doctor by clicking on ‘book an appointment’ option after browsing in the desired department in the app.
+      </div>
+    </li>
+    <li>
+      <b>
+        App Issues:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#appIssue" class="btn-defualt btn">1.	My app is crashing. I need help!</button>
+
+      <div id="appIssue" class="collapse">
+        Please try to close & reopen the app, also do check your internet connectivity. If nothing works contact us/write to us.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#appIssue1" class="btn-defualt btn">2.	Other app issues</button>
+
+      <div id="appIssue1" class="collapse">
+        Contact us (below) Describe your issue:
+      </div>
+    </li>
+    <li>
+      <b>
+        Account & Profile settings:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc1" class="btn-defualt btn">1.	How do I create/add profile in my an account?</button>
+
+      <div id="acc1" class="collapse">
+        Click on new consultation. Under ‘who is the patient’, you have a dropdown where you can ‘add a family member/ relative’. Enter the required details. Alternatively you can visit more section – Profiles & add profile there.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc2" class="btn-defualt btn">
+        2.	How can I reset the password?
+      </button>
+
+      <div id="acc2" class="collapse">
+        You can click on settings section in more option & click on change password. Enter your old password & new password. Save changes.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc3" class="btn-defualt btn">
+        3.	What to do if I forget my password?
+      </button>
+
+      <div id="acc3" class="collapse">
+        While signing in, you enter your mobile number. Click on forgot password. We’ll send you an OTP. Enter that and change your password.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc4" class="btn-defualt btn">
+        4.	How to change my profile details?
+      </button>
+
+      <div id="acc4" class="collapse">
+        You can change all your profile details by clicking on the ‘my profile’ in the main dashboard of your app.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc5" class="btn-defualt btn">
+
+      </button>
+
+      <div id="acc5" class="collapse">
+
+      </div>
+    </li>
+    <li>
+      <b>
+        Payment & related issues:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc6" class="btn-defualt btn">
+        1.	How do I make the payment for booking a video consultation?
+      </button>
+
+      <div id="acc6" class="collapse">
+        You can make the payment through multiple easy online options such as your credit/debit card & net banking.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc7" class="btn-defualt btn">
+        2.	If the doctor isn’t available will I get a refund?
+      </button>
+
+      <div id="acc7" class="collapse">
+        Yes, you will.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc8" class="btn-defualt btn">
+        3.	Where will my refund come to?
+      </button>
+
+      <div id="acc8" class="collapse">
+        It would be reversed to your Medeza account / source account as per your preference.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc9" class="btn-defualt btn">
+        4.	How many days will it take for a refund?
+      </button>
+
+      <div id="acc9" class="collapse">
+        It would take two to three working days as per standard policies.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc10" class="btn-defualt btn">
+        5.	I am unable to make a payment.
+      </button>
+
+      <div id="acc10" class="collapse">
+        Contact us through our customer care/Write to us
+        Describe your issue:
+
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc11" class="btn-defualt btn">
+        6.	I made payment but the consultation hasn’t started.
+      </button>
+
+      <div id="acc11" class="collapse">
+        Contact us through our customer care / write to us.
+        Describe your issue:
+
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc12" class="btn-defualt btn">
+        7.	I am unable to apply the coupon code
+      </button>
+
+      <div id="acc12" class="collapse">
+        Contact us through our customer care / write to us
+        Describe your issue:
+
+      </div>
+    </li>
+    <li>
+      <b>
+        Security:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc13" class="btn-defualt btn">
+        1.	Who can see the chat & images I upload?
+      </button>
+
+      <div id="acc13" class="collapse">
+        Only the doctors who are currently handling your case have the access to your data. Once the case is completed, this data is then only visible to you.
+      </div>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc14" class="btn-defualt btn">
+        2.	How does Medeza protect my data?
+      </button>
+
+      <div id="acc14" class="collapse">
+        At MEDEZA, we always have your data’s safety in mind and work hard to ensure it at all times. In order to continually earn your trust, we transfer your data in HTTPS, encrypt your data on our servers, are regularly being audited and make sure our features help you to be safe. For instance, we help you choose a safe password so your account stays protected from hackers.
+      </div>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc15" class="btn-defualt btn">
+        3.	Can I access my data anytime?
+      </button>
+
+      <div id="acc15" class="collapse">
+        Your Data/medical records are always preserved with MEDEZA electronic medical record system. We will email the soft copies to you as and when you request them or you may also download a copy logging in through your registered account
+      </div>
+    </li>
+    <li>
+      <b>
+        Health Check:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc16" class="btn-defualt btn">
+        1.	How do I place a Health Assessment order?
+      </button>
+
+      <div id="acc16" class="collapse">
+        You can place an order for health assessment by choosing your preferred package from dashboard.
+      </div>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc17" class="btn-defualt btn">
+        2.	I want to reschedule my sample collection.
+      </button>
+
+      <div id="acc17" class="collapse">
+        No Problem. Call our customer care or mail us with the order details & we will get in touch with you.
+      </div>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc18" class="btn-defualt btn">
+        3.	I need a hardcopy of my reports.
+      </button>
+
+      <div id="acc18" class="collapse">
+        Your reports will be available in the app. You will be able to access them in “Reports” section of your    profile.
+      </div>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc19" class="btn-defualt btn">
+        4.	Other issue.
+      </button>
+
+      <div id="acc19" class="collapse">
+        Please let us know the issue through a mail/ write to us below and we will get back to you at   the    earliest.
+      </div>
+    </li>
+    <li>
+      <b>
+        Lab Test:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc20" class="btn-defualt btn">
+        1.	How do I place a test order?
+      </button>
+
+      <div id="acc20" class="collapse">
+        You can place an order for lab tests from prescription of your respective consultation.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc21" class="btn-defualt btn">
+        2.	Can I place a lab test without any prescription?
+      </button>
+
+      <div id="acc21" class="collapse">
+        No, we currently support orders only from prescription issued during consultation via MEDEZA app.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc22" class="btn-defualt btn">
+        3.	Can I do partial tests from my prescription?
+      </button>
+
+      <div id="acc22" class="collapse">
+        Yes, you can select the tests you wish to do while placing an order.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc23" class="btn-defualt btn">
+        4.	Will my reports be accurate?
+      </button>
+
+      <div id="acc23" class="collapse">
+        We strive to provide the best care. Our lab partners are certified & approved by our doctors.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc24" class="btn-defualt btn">
+        5.	I want to reschedule my sample collection/center visit.
+      </button>
+
+      <div id="acc25" class="collapse">
+        No problem, write to us with your order details and date we will get in touch.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc26" class="btn-defualt btn">
+        6.	How can I pay for my lab test order?
+      </button>
+
+      <div id="acc26" class="collapse">
+        You can pay for your order via cash and online (card, net banking &UPI, Paytm).
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc27" class="btn-defualt btn">
+        7.	I wish to know the status of my lab test order.
+      </button>
+
+      <div id="acc27" class="collapse">
+        Please share your order date & details. We will update you on the status via email.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc28" class="btn-defualt btn">
+        8.	I have done a lab test and wish to consult with a doctor. But my case is closed. How can I consult with the doctor?
+      </button>
+
+      <div id="acc28" class="collapse">
+        Please create a new case by booking an appointment with the doctor of your choice.
+      </div>
+    </li>
+    <li>
+      <b>
+        Medicines Order:
+      </b>
+      <br/>
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc29" class="btn-defualt btn">
+        1.	How do I place a medicine order?
+      </button>
+
+      <div id="acc29" class="collapse">
+        You can place an order for medicines from prescription of your respective consultation.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc30" class="btn-defualt btn">
+        2.	Can I place a medicine order without a MEDEZA Prescription?
+      </button>
+
+      <div id="acc30" class="collapse">
+        No, we currently support orders only from prescription issued during consultation done via MEDEZA app.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc31" class="btn-defualt btn">
+        3.	I wish to know the status of my Medicine order.
+      </button>
+
+      <div id="acc31" class="collapse">
+        Please share your order date & details. We share your order status via email.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc32" class="btn-defualt btn">
+        4.	Can I return my medicines?
+      </button>
+
+      <div id="acc32" class="collapse">
+        Sorry, returns are not possible for the medicines ordered.
+      </div>
+
+      <button  (click)="toggleDiv(this, $event)" data-toggle="collapse" data-target="#acc33" class="btn-defualt btn">
+        5.	Are the medicines delivered real?
+      </button>
+
+      <div id="acc33" class="collapse">
+        We have partnered with top pharmacies and we have set up strict quality measures to ensure that the medicines which we deliver are genuine from trusted partner brands.
+      </div>
+    </li>
+  </ul>
+</div>

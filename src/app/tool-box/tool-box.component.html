@@ -1,0 +1,592 @@
+<div *ngIf="toolboxData.isShowDesigner">
+  <button type="button" class="btn btn-xs float-left light-blue text-white" (click)="importWidget()">
+      <i class="fa fa-download"></i>
+  </button>
+  <button type="button" class="btn btn-xs float-right light-blue text-white" (click)="collapseTools()">
+    <i class="fa" [ngClass]="[showWidgetIcon]"></i>
+    <!--<i class="fa fa-chevron-down"></i>-->
+</button>  
+  <h4 class="light-blue text-center text-white p-2">Widgets</h4>
+
+  <!-- TOOLS BAR -->
+  <div class="tools widget-box" *ngIf="isShowWidgets">
+        <ul class="mb-0">
+            <li *ngFor="let tool of toolboxData.toolTypes" class="f-12" (click)="createControl($event, tool.type, -1, '', tool.content)">
+                <i class="f-15 {{tool.icon}}"></i>
+                <b>{{tool.name | titlecase}}</b>
+            </li>
+        </ul>
+    </div>
+</div>  
+  <!-- INPUT TYPES SELECTION SECTION -->  
+    <div class="col-sm-12 p-0 properties" *ngIf="toolboxData.currentControl.id !== undefined">
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item border">
+              <a class="nav-link active" data-toggle="tab" href="#home">Attributes</a>
+            </li>
+            <li class="nav-item border">
+              <a class="nav-link" data-toggle="tab" href="#menu1" *ngIf="toolboxData.currentControl.defaultType !== 'text'">Action</a>
+            </li>
+            <li class="nav-item border">
+              <a class="nav-link" data-toggle="tab" href="#menu2" *ngIf="toolboxData.currentControl.defaultType !== 'text'">Style</a>
+            </li>
+          </ul>
+        
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div id="home" class="container tab-pane active p-0 table-wrapper-scroll-y">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <tr>
+                            <td><b>Name</b></td>
+                            <td>
+                                <input class="form-control" type='text' [readonly]="true" [(ngModel)]="toolboxData.currentControl.name" (click)="showWidgetId($event)"/>
+                            </td>
+                        </tr>                                        
+                        <tr>
+                            <td><b>Control Name</b></td>
+                            <td>
+                                <p class="form-control font-weight-bold">{{toolboxData.currentControl.type}}</p>
+                            </td>
+                        </tr>
+                        <tr *ngIf="inputType?.length>0 && toolboxData.currentControl?.defaultType === 'input'">
+                            <td><b>Type</b></td>
+                            <td>
+                                <select class="form-control" (change)='inputTypeChanged($event)' [(ngModel)]="toolboxData.currentControl.type">
+                                    <option value="" selected>Choose Type</option>
+                                    <option
+                                        *ngFor="let input of toolboxData.inputType" value="{{input.id}}">
+                                        <b>{{input.id | titlecase}}</b>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <!--<tr *ngIf="toolboxData.currentControl.defaultType !== 'text'">
+                            <td><b>Style {{toolboxData.currentControl.style}}</b></td>
+                            <td>
+                                <select class="form-control" [(ngModel)]="toolboxData.currentControl.style" (change)='applyStyleforControl($event)'>
+                                    <option value="" selected>Default Style</option>
+                                    <option value='new'>New Style</option>
+                                </select>
+                            </td>
+                        </tr>-->
+                        <tr *ngIf="toolboxData.currentControl.defaultType === 'image'">
+                            <td><b>Source</b></td>
+                            <td>
+                                <input class="form-control" type='text' [readonly]="true" [(ngModel)]="toolboxData.currentControl.value" (click)="showWidgetImageSrc($event)"/>                                
+                            </td>
+                        </tr>                         
+                        <tr>
+                            <td><b>Show Label</b></td>
+                            <td>
+                                <select class="form-control" [(ngModel)]="toolboxData.currentControl.needLabel" (change)='applyLabelShow($event)'>
+                                    <option value="true">Yes</option>
+                                    <option value='false'>No</option>
+                                </select>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td><b>Show/Hide</b></td>
+                            <td>
+                                <select class="form-control" [(ngModel)]="toolboxData.currentControl.canShow" (change)='applyCanShow($event)'>
+                                    <option value="true">Show</option>
+                                    <option value='false'>Hide</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Device</b></td>
+                            <td>
+                                <select class="form-control" >
+                                    <option value="" selected>Choose Type</option>
+                                    <option
+                                        *ngFor="let input of deviceTypes" value="{{input}}">
+                                        <b>{{input}}</b>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr *ngIf="toolboxData.currentControl.defaultType === 'accordion' || toolboxData.currentControl.defaultType === 'tabs' || toolboxData.currentControl.defaultType === 'table'">
+                            <td><b>Data</b></td>
+                            <td>
+                                <button (click)="showMasterData($event)">MasterData</button>                    
+                            </td>
+                        </tr>            
+                        <tr *ngIf="toolboxData.currentControl.defaultType !== 'popup'">
+                            <td><b>Width</b></td>
+                            <td>
+                                <select class="form-control" (change)='onChangeInputWidth($event)' [(ngModel)]="toolboxData.currentControl.width">
+                                    <option value="" selected>Choose Type</option>
+                                    <option
+                                        *ngFor="let input of Array(12); let skipi = index" value="{{skipi+1}}">
+                                        <b>{{skipi+1}}</b>
+                                    </option>
+                                </select>
+                            </td>
+                        </tr>                        
+                        <tr *ngIf="toolboxData.currentControl.defaultType === 'table'">
+                            <td><b>Columns</b></td>
+                            <td>
+                            <input class="form-control" type='text'/>
+                            </td>
+                        </tr>                                           
+                    </tbody>
+                </table>
+            </div>
+            <div id="menu1" class="container tab-pane p-0"><br>
+                <table class="table table-bordered table-striped">
+                    <tbody>                
+                        <tr>
+                            <td><b>Load</b></td>
+                            <td>
+                                <button (click)="addControlActionLogic($event, 'load')">..</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="toolboxData.currentControl.defaultType === 'text'">
+                            <td><b>Change</b></td>
+                            <td>
+                                <button (click)="addControlActionLogic($event, 'change')">..</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Click</b></td>
+                            <td>
+                                <button (click)="addControlActionLogic($event, 'click')">..</button>
+                            </td>
+                        </tr>
+                        <tr *ngIf="toolboxData.currentControl.defaultType === 'dropdown' || toolboxData.currentControl.defaultType === 'condition' || toolboxData.currentControl.defaultType === 'checkbox'">
+                            <td><b>Select</b></td>
+                            <td>
+                                <button (click)="addControlActionLogic($event, 'select')">..</button>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td><b>TouchStart</b></td>
+                            <td>
+                                <button (click)="addControlActionLogic($event, 'touchStart')">..</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>TouchEnd</b></td>
+                            <td>
+                                <button (click)="addControlActionLogic($event, 'touchEnd')">..</button>
+                            </td>
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+            <!--Style-->
+            <div id="menu2" class="container tab-pane p-0"><br>
+                <table class="table table-bordered table-striped">
+                    <tbody>                
+                        <tr>
+                            <td><b>ID</b></td>
+                            <td>
+                                <input class="form-control" type='text' [readonly]="true" [(ngModel)]="toolboxData.currentControl.id"/>
+                                <!-- (click)="showWidgetId($event)" -->
+                            </td>
+                        </tr>
+                        <!--<tr>
+                            <td><b>Transform</b></td>
+                            <td>
+                                <input class="form-control" type='text' (change)="changeTransform($event)"/>                                
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <td><b>Style Class</b></td>
+                            <td>
+                                <button class="form-control" (click)="chooseStyleEditor('class')">..Add</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Style Source</b></td>
+                            <td>
+                                <button class="form-control" (click)="chooseStyleEditor('source')">..Add</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+    </div>
+   
+  <!-- ALIGNMENTS SELECTION SECTION -->
+  <ul class="mb-0" *ngIf="toolboxData.isShowDesigner && toolboxData.controlOptions?.length>0">
+      <li>
+          <hr class="m-0 p-0" />
+      </li>
+      <li>
+          <b>Alignment</b>
+      </li>
+      <li *ngFor="let align of controlOptions; let i = index">
+          <label class="form-check-label" for="align{{align.align}}">
+              <input type="radio" class="form-check-input" name="alignment" value="{{align.align}}"
+                  id='align{{align.align}}' [checked]='align.selected'
+                  (change)='alignmentChanged($event, align)'>
+              <span class="ml-5">{{align.align | titlecase}}</span>
+          </label>
+      </li>
+  </ul>
+
+  <!-- RANGE INPUT PROPERTIES SECTION -->
+  <ul *ngIf="currentControl?.type==='range'">
+      <li>
+          <hr class="m-0 p-0" />
+      </li>
+      <li>
+          <b>Range Options</b>
+      </li>
+      <li>
+          <b>Min</b>
+          <input type="number" [(ngModel)]="rangeSlider.min" placeholder="Min Value"
+              (keyup)="changeRangeValuese($event, 'min')" />
+      </li>
+      <li>
+          <b>Max</b>
+          <input type="number" [(ngModel)]="rangeSlider.max" placeholder="Max Value"
+              (keyup)="changeRangeValuese($event, 'max')" />
+      </li>
+      <li>
+          <b>Step</b>
+          <input type="number" [(ngModel)]="rangeSlider.step" placeholder="Step like 0.5,1,2..."
+              (keyup)="changeRangeValuese($event, 'step')" />
+      </li>
+  </ul>
+<div class="modal show" id="fieldMapping" data-backdrop='static' *ngIf="isShowPopup">
+    <div class="modal-dialog model-dialog-ext">
+        <div class="modal-content">
+            <div class="modal-header secondary-color">
+                <h4 class="modal-title text-white">({{popupHdrName}})Master Data</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="closePopup()"><i class="fa fa-times text-white"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <label class="control-label mt-3 col-sm-4">Header Name</label>
+                                        <div class="col-sm-8">
+                                          <select class="form-control" [(ngModel)]="hdrOption" (change)="changeHeader()">
+                                            <option value="" selected>Choose</option>
+                                            <option value="newTab" selected>Create</option>
+                                            <option *ngFor="let item of toolboxData.currentControl.data"
+                                            [value]="item.title">{{item.title}}</option>
+                                        </select>                                        
+                                        </div>
+                                </div>
+                                <div class="row" *ngIf="hdrOption === 'newTab'">
+                                    <label class="control-label mt-3 col-sm-4">New Header</label>
+                                        <div class="col-sm-8">
+                                        <input class="form-control" type="text" [(ngModel)]="hdrItem"/>
+                                        </div>
+                                </div>                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-sm-12 table-responsive">
+                                        <table class="table table-bordered f-12">
+                                            <thead>
+                                                <tr>
+                                                    <th class="light-blue text-white">Element</th>                                                                                                    
+                                                    <th class="light-blue text-white">Data</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngFor="let item of Object.keys(masterData)">
+                                                <tr>
+                                                    <td>{{item}}</td>                                                    
+                                                    <td><input class="form-control" type="text" [value]="masterData[item]" (change)="changeDataItem($event, item)"/></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="modal-footer">
+                <div class="btn-group btn-group-lg">
+                    <button type="button" class="btn light-blue text-white" data-dismiss="modal"
+                    (click)="updateMasterData()">Update</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal show" id="twoFieldPopup" data-backdrop='static' *ngIf="isShowTwoPopup">
+    <div class="modal-dialog model-dialog-ext">
+        <div class="modal-content">
+            <div class="modal-header secondary-color">
+                <h4 class="modal-title text-white">Property</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="closeWidgetId()"><i class="fa fa-times text-white"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <label class="control-label mt-3 col-sm-4">Property Id</label>
+                                </div>                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label class="control-label mt-3 col-sm-4">Property Value</label>
+                                        <div class="col-sm-8">
+                                        <input class="form-control" id='widgetId' #widgetId type="text" [(ngModel)]="newWidgetId"/>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="modal-footer">
+                <div class="btn-group btn-group-lg">
+                    <button type="button" class="btn light-blue text-white" data-dismiss="modal"
+                    (click)="changeWidgetId()">Update</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="modal show" id="styleFieldPopup" data-backdrop='static' *ngIf="isShowStylePopup">
+    <div class="modal-dialog model-dialog-ext">
+        <div class="modal-content">
+            <div class="modal-header secondary-color">
+                <h4 class="modal-title text-white">Styles</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)='closeStyleModel($event)'><i class="fa fa-times text-white"></i></button>
+            </div>
+            <div class="modal-body" style='background-color: #a9a9a921;'>
+                <div class="row mb-4">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-sm-4 col-sm-offset-4 p-0">
+                                    <input type='text' [(ngModel)]="styleProperties.padding.top" class="f-12 text-center form-control" placeholder="top" />
+                                </div>
+                                <div class="col-sm-12 p-0">
+                                    <div class="col-sm-5">
+                                        <input type='text' [(ngModel)]="styleProperties.padding.left" class="f-12 text-center form-control" placeholder="left" />
+                                    </div>
+                                    <div class="col-sm-2 p-0 mt-3" style="margin-left: -5px; margin-right: 5px;">
+                                        <span><b class="f-12 text-red">Padding</b></span>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type='text' [(ngModel)]="styleProperties.padding.right" class="f-12 text-center form-control" placeholder="right" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-sm-offset-4 p-0">
+                                    <input type='text' [(ngModel)]="styleProperties.padding.bottom" class="f-12 text-center form-control" placeholder="bottom" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="col-sm-4 col-sm-offset-4 p-0">
+                                    <input type='text' [(ngModel)]="styleProperties.margin.top" class="f-12 text-center form-control" placeholder="top" />
+                                </div>
+                                <div class="col-sm-12 p-0">
+                                    <div class="col-sm-5">
+                                        <input type='text' [(ngModel)]="styleProperties.margin.left" class="f-12 text-center form-control" placeholder="left" />
+                                    </div>
+                                    <div class="col-sm-2 p-0 mt-3">
+                                        <span><b class="f-12 text-red">Margin</b></span>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type='text' [(ngModel)]="styleProperties.margin.right" class="f-12 text-center form-control" placeholder="right" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-sm-offset-4 p-0">
+                                    <input type='text' [(ngModel)]="styleProperties.margin.bottom" class="f-12 text-center form-control" placeholder="bottom" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="col-sm-4 col-sm-offset-4 p-0">
+                                    <input type='text' [(ngModel)]="styleProperties.border.top" class="f-12 text-center form-control" placeholder="top" />
+                                </div>
+                                <div class="col-sm-12 p-0">
+                                    <div class="col-sm-5">
+                                        <input type='text' [(ngModel)]="styleProperties.border.left" class="f-12 text-center form-control" placeholder="left" />
+                                    </div>
+                                    <div class="col-sm-2 p-0 mt-3" style="margin-left: -5px; margin-right: 5px;">
+                                        <span><b class="f-12 text-red">Border</b></span>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <input type='text' [(ngModel)]="styleProperties.border.right" class="f-12 text-center form-control" placeholder="right" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 col-sm-offset-4 p-0">
+                                    <input type='text' [(ngModel)]="styleProperties.border.bottom" class="f-12 text-center form-control" placeholder="bottom" />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 styles">
+                                <div class="row">
+                                <ul>
+                                    <li>
+                                        <b class='f-12' [ngStyle]="{'color.px': styleProperties.fontColor}">Font Color</b><br/>
+                                        <input type="color" #txtFntClr [(ngModel)]="styleProperties.fontColor" id="txtFntClr" name="txtFntClr" /><br/>
+                                        <b>{{txtFntClr.value}}</b>
+                                    </li>
+                                    <li>
+                                        <b class='f-12' [ngStyle]="{'color.px': styleProperties.borderColor}">Border Color</b><br/>
+                                        <input type="color" #txtBrdrClr [(ngModel)]="styleProperties.borderColor" id="txtBrdrClr" name="txtBrdrClr" /><br/>
+                                        <b>{{txtBrdrClr.value}}</b>
+                                    </li>
+                                    <li>
+                                        <b class='f-12' [ngStyle]="{'color.px': styleProperties.backgroundColor}">Background Color</b><br/>
+                                        <input type="color" #txtBackClr [(ngModel)]="styleProperties.backgroundColor" id="txtBackClr" name="txtBackClr" /><br/>
+                                        <b>{{txtBackClr.value}}</b>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-sm-12">
+                                    <label class='control-label text-red' [ngStyle]="{'font-weight': styleProperties.fontWeight}">Font Weight</label>
+                                    <div class="p-0 col-sm-12">
+                                        <input type="range" class='rangeSlider' [(ngModel)]="styleProperties.fontWeight" #fntWt id='fntWt' step='100' min="100" max="700">
+                                        <p><b class='f-15 float-right'>{{styleProperties.fontWeight}}</b></p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn-group btn-group-lg">
+                    <button type="button" class="btn light-blue text-white" (click)="updateStyleProperties($event)"  data-dismiss="modal">Update</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- Import HTML to template-->
+<!-- Import Template Modal -->
+<!--<div class="modal show" id="mdlImportHTML" data-backdrop="static" *ngIf="isShowImportHTML">
+    <div class="modal-dialog">
+        <div class="modal-content light-green">
+            <div class="modal-header secondary-color">
+                <h3 class="modal-title text-white">Templates</h3>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12">
+                    <div class="row">
+                        <label class="control-label col-sm-4">Name</label>
+                        <div class='col-sm-8'>
+                            <input type='text' class='form-control' [(ngModel)]="customWidgetName"/>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <label class="control-label col-sm-4">Choose template</label>
+                        <div class="col-sm-8">
+                            <button type="button" class="btn light-blue addFile" (click)="callUpload()">
+                                <i class="text-white fa fa-upload"></i>
+                            </button>
+                            <input type="file" id="file" accept="text/html" #myInput [hidden]='true' (change)="handleFileInputs($event)" />
+                        </div>
+                    </div>
+                    <div class="row" #preview id='preview'>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-secondary" (click)='isShowImportHTML=false' data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-lg btn-primary" data-dismiss="modal"
+                    (click)='uploadWidget()'>Add</button>
+            </div>
+
+        </div>
+    </div>
+</div>-->
+
+<div class="modal show" data-backdrop='static' *ngIf="isShowStyleEditor === true">
+    <div class="modal-dialog model-dialog-ext">
+        <div class="modal-content">
+            <div class="modal-header secondary-color">
+                <h4 class="modal-title text-white">Property</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="closeStyleEditor()">
+                    <i class="fa fa-times text-white"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row d-flex">
+                                    <label class="control-label mt-3 col-sm-11">Style Editor</label>
+                                    <div class="control-label col-sm-1 light-blue text-white">
+                                        <i class="fas fa-plus mt-3"></i>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label class="control-label mt-3 col-sm-3">{{styleEditorType === 'class'?'Style Class':'Style Source'}}</label>
+                                    <textarea class="control-label col-sm-8 p-2" style="height: 20vh;" [(ngModel)]="selectedStyleSource"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="modal-footer">
+                <div class="btn-group btn-group-lg">
+                    <button type="button" class="btn light-blue text-white" data-dismiss="modal"
+                    (click)="changeStyleEditor()">Update</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="modal show" data-backdrop='static' *ngIf="isShowImagePopup">
+    <div class="modal-dialog model-dialog-ext">
+        <div class="modal-content">
+            <div class="modal-header secondary-color">
+                <h4 class="modal-title text-white">Image Source</h4>
+                <button type="button" class="close" data-dismiss="modal" (click)="closeImageSrc()"><i class="fa fa-times text-white"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <label class="control-label mt-3 col-sm-4">Image Source</label>
+                                </div>                                
+                            </div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <label class="control-label mt-3 col-sm-4">Source Value</label>
+                                        <div class="col-sm-8">
+                                        <input class="form-control" type="text" [(ngModel)]="widgetImageSrc"/>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+  
+            <div class="modal-footer">
+                <div class="btn-group btn-group-lg">
+                    <button type="button" class="btn light-blue text-white" data-dismiss="modal"
+                    (click)="changeWidgetImageSrc()">Update</button>
+                  </div>
+            </div>
+        </div>
+    </div>
+  </div>

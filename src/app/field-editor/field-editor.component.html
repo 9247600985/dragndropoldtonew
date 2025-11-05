@@ -1,0 +1,100 @@
+<div class="mt-5 container-fluid scrollableDiv">
+  <div class="col-sm-12">
+      <div class="card">
+          <div class="card-header">
+              <h4 class="col-sm-3">Actions</h4> 
+              <span class="btn btn-sm light-blue text-white float-right"
+                                  (click)="closeEditor()"><i
+                                      class="fa fa-times-circle"></i></span>             
+          </div>
+          <div class="card-body">                
+              <div class="row">
+                  <div class="col-sm-12">
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <h4 class="col-sm-6">Parameters</h4>
+                              <span class="col-sm-5 mt-1 text-right"> Pass Through</span>
+                              <input type="checkbox" class=""
+                                  (change)="onInPassThrough()" />
+                              <span class="btn btn-sm light-blue text-white float-right"
+                                  (click)="addParam()"><i
+                                      class="fa fa-plus"></i></span>
+                          </div>
+                          <div class="panel-body">
+                              <div class="row">
+                                  <div class="form-group col-sm-3 p-0" *ngIf="mappingType === 'input' && apiParams.length > 0">
+                                  <label class="control-label mt-3 col-sm-4">Condition</label>
+                                  <div class="col-sm-8">
+                                      <select class="form-control" [(ngModel)]="decisionType">
+                                      <option value="" selected>Choose</option>
+                                      <option *ngFor="let item of decisionTypes"
+                                      [value]="item.source">{{item.source}}</option>
+                                  </select>
+                                  </div>
+                              </div>                                
+                                  <div class="form-group col-sm-{{apiParams.length > 0?3:4}} p-0">
+                                      <label class="control-label mt-3 col-sm-4">{{srcTagName}}</label>
+                                      <div class="col-sm-8">
+                                      <select class="form-control" [(ngModel)]="paramSrc">
+                                          <option value="" selected>Choose</option>
+                                          <option *ngFor="let item of sourceParams"
+                                          [value]="item.paramName">{{item.paramName}}</option>
+                                      </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-group col-sm-{{apiParams.length > 0?3:4}} p-0" *ngIf="mappingType === 'input'">
+                                  <label class="control-label mt-3 col-sm-4">Opr</label>
+                                  <div class="col-sm-8">
+                                      <select class="form-control" [(ngModel)]="operatorType">
+                                          <option value="" selected>Choose</option>
+                                          <option *ngFor="let op of operatorTypes"
+                                              [value]="op.source">{{op.source}}</option>
+                                      </select>
+                                  </div>
+                                  </div>                                  
+                                  <div class="form-group col-sm-{{apiParams.length > 0?3:4}} p-0">
+                                      <label class="control-label mt-3 col-sm-4">{{tgtTagName}}</label>
+                                      <div class="col-sm-8">
+                                          <select class="form-control" [(ngModel)]="paramTgt">
+                                              <option value="" selected>Choose</option>
+                                              <option *ngFor="let item of targetParams"
+                                                  [value]="item.paramName">{{item.paramName}}</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-sm-12 table-responsive">
+                                      <table class="table table-bordered f-12">
+                                          <thead>
+                                              <tr>
+                                                  <th class="light-blue text-white">Element</th>
+                                                  <th class="light-blue text-white" *ngIf="mappingType === 'input'">Operator</th>
+                                                  <th class="light-blue text-white">Scope</th>
+                                                  <th class="light-blue text-white"></th>
+                                              </tr>
+                                          </thead>
+                                          <tbody *ngFor="let item of apiParams">
+                                              <tr (click)="changeApiParam(item)">
+                                                  <td>{{item.element}}</td>
+                                                  <td *ngIf="mappingType === 'input'">{{item.operator}}</td>
+                                                  <td>{{item.scope}}</td>
+                                                  <td (click)="onDeleteApi(item)"><i
+                                                  class="text-danger fas fa-times fa-4x"></i></td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="btn-group btn-group-lg">
+                  <button type="button" class="btn light-blue text-white" data-dismiss="modal"
+                  (click)="addApiMapping()">Update</button>
+              </div> 
+          </div>
+      </div>
+  </div>
+</div>  

@@ -1,0 +1,13 @@
+<div class="contaier-fluid">
+  <div class="row">
+      <div class="col-sm-12 mt-2">
+          <div class="col-sm-12 mt-2" align='right'>
+              <span class="btn btn-secondary" (click)="createReport()"><i
+                  class="fa fa-plus f-15 text-white"></i> Create Report</span>
+          </div>
+      </div>
+  </div>
+  <hr />
+  <app-data-table [dtBody]="dtBody" [dtHeader]="dtHeader" [dtCaption]="'Templates'" class="col-sm-12"
+      (actionEvent)='onRowClick($event)' *ngIf="isDisplayTable === true"></app-data-table>
+</div>

@@ -1,0 +1,175 @@
+<app-jumbotron [data]="jumbotron" (actionEvent)="onNavigateBack($event)"></app-jumbotron>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class='scrollableDiv'>
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" formControlName="FirstName" placeholder='First name' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" />
+                  <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                      <div class='text-danger' *ngIf="f.FirstName.errors.required">This field is required</div>
+                  </div>
+        </div>
+        <div class="form-group" *ngIf="isPatient === true">
+          <label for="lastName">Last Name</label>
+          <input type="text" formControlName="LastName" placeholder='Last name' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }" />
+                  <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+                      <div class='text-danger' *ngIf="f.LastName.errors.required">This field is required</div>
+                  </div>
+        </div>
+        <div class="form-group" *ngIf="isPatient === true">
+          <label for="dob">Date of birth</label>
+          <input type="date" formControlName="Dob" placeholder="dd/mm/yyyy" [max]="maxDate | date:'yyyy-MM-dd'" class="form-control" (change)="calculateAge()" [ngClass]="{ 'is-invalid': submitted && f.Dob.errors }" />
+          <div *ngIf="submitted && f.Dob.errors" class="invalid-feedback">
+            <div class='text-danger' *ngIf="f.Dob.errors.required">This field is required</div>
+        </div>
+        </div>
+        <div class="form-group d-none" *ngIf="isPatient === true">
+          <label for="Age">Age</label>
+          <input type="text" formControlName="Age" class="form-control" />
+        </div>
+        <div class='form-group' *ngIf="isPatient === true">
+          <label for='Gender'>Gender</label>
+          <select formControlName="Gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }">
+            <option value="">Choose Gender</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="O">Others</option>
+        </select>
+        <div *ngIf="submitted && f.Gender.errors" class="invalid-feedback">
+            <div class='text-danger' *ngIf="f.Gender.errors.required">This field is required</div>
+        </div>
+        </div>
+        <div class="form-group" *ngIf="isPatient === true">
+          <label for="bloodGroup">Blood Group</label>
+          <select formControlName="bloodGroup" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bloodGroup.errors }">
+            <option value=''>Choose Blood Group</option>
+            <option *ngFor='let item of bloodGroups' value='{{item.id}}'>{{item.name}}</option>
+          </select>
+          <div *ngIf="submitted && f.bloodGroup.errors" class="invalid-feedback">
+            <div class='text-danger' *ngIf="f.bloodGroup.errors.required">Blood group is required</div>
+        </div>
+        </div>
+        <div class="form-group" *ngIf="isPatient === true">
+          <label for="firstName">Email</label>
+          <input type="text" formControlName="Email" placeholder='Email' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+          <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+            <div class='text-danger' *ngIf="f.Email.errors.required">Email is required</div>
+            <div class='text-danger' *ngIf="f.Email.errors.email">Email must be a valid email address</div>
+        </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input [type]="fieldTextType ? 'text' : 'password'" id='password' autocomplete='off' formControlName="Password" placeholder='Password' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Password.errors }" />
+          <i class="fa " [ngClass]="{'fa-eye-slash': !fieldTextType, 'fa-eye': fieldTextType}" (click)="togglePassword()"></i>
+          <div class='pwdConditions' *ngIf="f.Password.errors">
+            <ul>
+              <li>Your password should:</li>
+
+              <li>
+                <label [ngClass]="f.Password.hasError('required') ||
+              f.Password.hasError('minlength') ? 'text-danger' : 'text-success'"
+              >
+                <i class="fas {{ f.Password.hasError('required') || f.Password.hasError('minlength') ? 'fa-window-close' :
+                'fa-check' }}"></i>
+                  Be atleast 6 characters in length
+                </label>
+              </li>
+
+              <li>
+                <label [ngClass]="f.Password.hasError('required') ||
+                f.Password.hasError('hasString')  ? 'text-danger' : 'text-success'"
+>
+<i class="fas {{ f.Password.hasError('required') ||
+f.Password.hasError('hasString') ? 'fa-window-close' :
+'fa-check' }}"></i>
+Must contain atleast 1 letter
+</label>
+              </li>
+
+              <li>
+                <label [ngClass]="f.Password.hasError('required') ||
+f.Password.hasError('hasNumber')  ? 'text-danger' : 'text-success'"
+>
+<i class="fa {{ f.Password.hasError('required') ||
+f.Password.hasError('hasNumber') ? 'fa fa-window-close' :
+'fa-check' }}"></i>
+Must contain atleast 1 number
+</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group" *ngIf="isPatient === true">
+          <label for="city">City</label>
+          <input type="text" formControlName="city" placeholder='City' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+          <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+            <div class='text-danger' *ngIf="f.city.errors.required">City is required</div>
+        </div>
+        </div>
+        <div class="form-group" *ngIf="isPatient === true">
+          <label for="country">Country</label>
+          <select formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+            <option value=''>Choose Country</option>
+            <option *ngFor='let item of countries' value='{{item.Country_ID}}'>{{item.Country_Name}}</option>
+          </select>
+          <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+            <div class='text-danger' *ngIf="f.country.errors.required">Country is required</div>
+        </div>
+        </div>
+        <!-- <div class="form-group">
+          <label for="ConfirmPassword">Confirm Password</label>
+          <input type="password" formControlName="ConfirmPassword" placeholder='Confirm Password' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.ConfirmPassword.errors }" />
+                  <div *ngIf="submitted && f.ConfirmPassword.errors" class="invalid-feedback">
+                      <div class='text-danger' *ngIf="f.ConfirmPassword.errors.required">This field is required</div>
+                      <div class='text-danger' *ngIf="f.ConfirmPassword.hasError('NoPassswordMatch')">Password do not match</div>
+                  </div>
+        </div> -->
+        <!-- <div class='form-group'>
+          <p>
+            <label>
+              To continue you must confirm the following
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" /> I have read and accept the <a [routerLink]="['/terms']"  class='text-light-blue'>Terms & Conditions</a>
+            </label>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" /> I have read the <a [routerLink]="['/privacy']" class='text-light-blue'>Privacy Policy</a>
+            </label>
+          </p>
+        </div> -->
+        <div class="form-group form-check">
+          <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptTerms.errors }" />
+          <label for="acceptTerms" class="form-check-label">I have read and accept the <a [routerLink]="['/terms']"  class='text-light-blue'>Terms & Conditions</a></label>
+          <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">Accept Terms & Conditions is required</div>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" formControlName="acceptPrivacy" id="acceptPrivacy" class="form-check-input" [ngClass]="{ 'is-invalid': submitted && f.acceptPrivacy.errors }" />
+          <label for="acceptPrivacy" class="form-check-label"> I have read the <a [routerLink]="['/privacy']" class='text-light-blue'>Privacy Policy</a></label>
+          <div *ngIf="submitted && f.acceptPrivacy.errors" class="invalid-feedback">Accept Privacy Policy is required</div>
+        </div>
+        <div class="form-group">
+          <label for=''></label>
+          <button class="btn btn-primary form-control">Register</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- <div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="jumbotron white">
+        <h2><a routerLink="/login"> <i class='fas fa-arrow-left'></i></a> Registration</h2>
+      </div>
+        <br/>
+        <div class="col-sm-12">
+
+      </div>
+    </div>
+  </div>
+</div> -->

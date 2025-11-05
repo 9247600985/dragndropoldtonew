@@ -1,0 +1,26 @@
+<div class="detail-card">
+  <div class="header light-green">
+    <caption class="caption">{{tableCaption | titlecase}}</caption>
+  </div>
+  <div class="content">
+    <h4 id="nodata">{{nodata}}</h4>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th *ngFor='let item of tableHeaders'>{{item | titlecase}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of data; let i=index;" (click)="RowSelected(item);">
+        <td><a>{{item.createdAt | date: 'dd-MM-yyyy'}}</a></td>
+        <td><a>{{item.work_assigned}}</a></td>
+        <td>{{item.work_status}}</td>
+        <td>
+          <i class="fa fa-pencil fa-1x text-red"></i>
+          <i class="fa fa-trash fa-1x text-green"></i>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<app-jumbotron [data]="jumbotron" (actionEvent)="onNavigateBack($event)"></app-jumbotron>
+<div class="container-fluid scrollableDiv">
+  <div class="row">
+    <div class="col-sm-12 banner" align='center'>
+      <ul class="">
+        <li align='left'>
+          <i class='fas fa-stethoscope fa-2x text-light-blue white'></i>
+          <p class="text-left">Choose symptom</p>
+        </li>
+        <li>
+          <i class='fas fa-user-md fa-2x text-light-blue white'></i>
+          <p>Choose doctor</p>
+        </li>
+        <li align='right'>
+          <i class='fa fa-clock fa-2x text-light-blue white'></i>
+          <p class="text-right">Book Appointment</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <app-patient-profiles (ProfileSelectEvent)="makeprofileSelected($event)" ></app-patient-profiles>
+    </div>
+  </div>
+  <div class="row symptoms">
+    <div class="col-sm-12">
+      <app-auto-fill [data]="symptoms" [defSymptoms]="defSymptoms" (actionEvent)="getSymptoms($event)" (removeActionEvent)="removeSymptom($event)"></app-auto-fill>
+    </div>
+    <div class="form-group" *ngIf="defSymptoms?.length>0" >
+      <ul>
+        <li *ngFor="let item of defSymptoms" >
+          <a href="#!" class='light-blue text-white' (click)="removeItemfromSymptoms($event, item)">
+            {{item.symptomName}}
+            <i class="fas fa-times"></i>
+          </a>
+        </li>
+      </ul>
+      </div>
+  </div>
+  <div class="row text-center text-lg-left">
+    <div *ngFor="let system of systems" align='left' class='row system'>
+      <h4><hr /><p><b class="white">{{system.system}}</b></p></h4>
+        <a align='left' class="col-lg-6 col-md-6 col-6"
+        *ngFor="let item of system.symptoms"
+        (click)="selectSymptom($event, item)"
+        >
+        <!-- routerLink="{{item.path}}" -->
+        <!-- [state]="{id: item.id, title: item.title, SpecializationId : item.specializationId, Specialization: item.title, icon: item.icon }" -->
+        <i class="fa fa-check fa-2x light-blue text-white" *ngIf="item.selected"  [ngClass]="{'symptomSelected': item.selected}"></i>
+        <img class="" src="{{item.icon}}" alt="" width='40' height='40'>
+          <span class='f-12'>{{item.title | titlecase}}</span>
+        </a>
+    </div>
+  </div>
+  <!--
+    [state]="{ SpecializationId : imageItem.id, Specialization: imageItem.title, icon:imageItem.icon }"
+    <div class="row">
+    <div class="col-12">
+      <app-images-grid [title]="'hello'" [imageItems]="symptoms"></app-images-grid>
+    </div>
+  </div> -->
+</div>
+<div class="footer">
+  <button type="button" class="f-20 btn yellow text-white rounded-0 col-12 p-4" (click)="gotoDoctors()"><b class='text-white'>Choose Doctor</b></button>
+</div>
+<!-- <app-footer-bar></app-footer-bar> -->
