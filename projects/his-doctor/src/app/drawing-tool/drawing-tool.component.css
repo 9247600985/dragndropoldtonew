@@ -1,0 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Noto+Sans);
+            html, body {
+                height: 100%;
+                margin: 0;
+            }
+
+.tui-image-editor-header-logo>img
+{
+  display: none;
+}

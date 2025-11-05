@@ -1,0 +1,38 @@
+<div class="">
+  <div class="col-sm-6 col-md-4" *ngFor="let item of data" >
+<div class="detail-card">
+  <div class="detail-card-content">
+    <div class="float-left">
+      <h4 class="text-light-blue">{{item.appointmentNo}}</h4>
+    </div>
+    <div class="float-right">
+      <!-- <ul>
+        <li>
+          <button type="button" (click)='reSchedule(item)' data-toggle="tooltip" class="btn btn-default" title="Re Schedule Appointment" [disabled]='item.visitStatus!="Pending"' ><i class="text-light-blue fa fa-clock"></i></button>
+        </li>
+        <li>
+          <button type="button" #btnCancelAction (click)='cancelCall(item)' data-toggle="tooltip" class="btn btn-default" title="Cancel Appointment" [disabled]='item.visitStatus!="Pending"'><i class="fas fa-times-circle text-danger"></i></button>
+        </li>
+      </ul> -->
+      <app-menu-bar (menuAction)='menuAction($event, item)'></app-menu-bar>
+    </div>
+    <!-- <h4 class="float-left text-success">{{item.appointmentNo}}</h4>
+    <h4 class="float-right text-muted" #btnCancelAction (click)="cancelCall(item)"><i class="fas fa-times-circle"></i></h4> -->
+    <div class="clearfix"></div>
+  <div class="col-12">
+    <p>{{item.patientName | titlecase}}</p>
+    <!-- <p>Translator | English - Telugu </p> -->
+    <p>Dr. {{item.doctor | titlecase}} | {{item.specialization | titlecase}}</p>
+    <p>Video | {{item.appointmentDate | date: 'dd-MM-yyyy'}} {{item.appointmentTime}}</p>
+  </div>
+  </div>
+  <div class="card-footer">
+    <button class="btn yellow" #btnMoreAction (click)='viewMore(item)' [disabled]='item.visitStatus=="Completed"'>Update</button>
+    <button class="btn yellow" #btnNavigateAction (click)="navigateTo(item)">
+      {{item.visitStatus === 'Paid' && item.meetStatus==1? 'Consult Now' : item.visitStatus }}
+    </button>
+  </div>
+</div>
+</div>
+<div class="clearfix"></div>
+</div>

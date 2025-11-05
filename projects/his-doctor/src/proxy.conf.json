@@ -1,0 +1,30 @@
+{
+  "/service": {
+    "target":  {
+        "host": "prosoftdata.ga",
+        "protocol": "https:",
+        "port": 443
+      },
+      "target1":  {
+        "host": "thiragati-admin.herokuapp.com",
+        "protocol": "https:",
+        "port": 443
+      },
+      "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  },
+  "/locals": {
+    "target":  {
+      "host": "localhost",
+      "protocol": "http:",
+      "port": 9010
+    },
+    "pathRewrite": {
+      "^/locals": "/service"
+    },      
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
+  }
+}

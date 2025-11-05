@@ -1,0 +1,125 @@
+.detail-card
+{
+  background:#ffffff;
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.14);
+  border-radius: 6px;
+  position: relative;
+  padding:10px 15px;
+  margin-top: 30px;
+}
+
+.detail-card>.header
+{
+  border-radius: 3px;
+  margin-top: -30px;
+  width: 100%;
+  overflow: hidden;
+  padding: 15px;
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(255,152,0,.4);
+}
+
+.detail-card>.content
+{
+  text-align:right;
+  border-bottom: 1px solid #efefef;
+  overflow: scroll;
+  height: 300px;
+  max-height: 300px;
+}
+
+.detail-card>.content>p:first-child{
+  margin-bottom:0 !important;
+  padding-bottom: 0;
+}
+
+.detail-card>.content>p>.labelName
+{
+  font-size:12px;
+  font-weight:200;
+}
+
+.detail-card>.content>p>.count
+{
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.detail-card .content .content-header{
+  font-size: 20px;
+  font-weight: 200;
+  text-align: left;
+  margin-top: 15px;
+  padding-bottom: 7px !important;
+}
+
+.detail-card .content .context-text{
+  text-transform: capitalize;
+  font-size: 12px;
+  text-align: left;
+  color: #999;
+}
+
+.detail-card>.detail-card-footer>span{
+  text-align: left;
+  padding-top:10px;
+  display: block;
+  font-size: 15px;
+  color:#999;
+}
+
+.icon{
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: -15px;
+  margin-left: 15px;
+}
+
+.icon .fa{
+  padding:20px;
+  border-radius:2px;
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(255,152,0,.4);
+}
+
+table tr th
+{
+  border-bottom: 1px solid #dddddd;
+}
+
+table tr th, table tr td{
+  padding:15px;
+  font-size: 12px;
+  vertical-align: middle;
+  text-align:left;
+  text-transform: capitalize;
+}
+
+table tr td i{
+  padding:7px;
+  font-size: 15px;
+}
+
+.table tr td i:hover{
+  background: rgba(0,0,0,0.1);
+}
+
+.detail-card .header .caption{
+  display: block;
+  color: #ffffff;
+  font-size:17px;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
+}
+
+.detail-card .header p{
+  color:#ffffff !important;
+  font-size:15px;
+}
+
+.table thead tr th{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    background-color: white;
+}

@@ -3,90 +3,134 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dragndrop": {
+    "his-doctor": {
       "projectType": "application",
       "schematics": {},
-      "root": "",
-      "sourceRoot": "src",
+      "root": "projects/his-doctor",
+      "sourceRoot": "projects/his-doctor/src",
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular/build:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/his-doctor",
+            "index": "projects/his-doctor/src/index.html",
+            "main": "projects/his-doctor/src/main.ts",
+            "polyfills": "projects/his-doctor/src/polyfills.ts",
+            "tsConfig": "projects/his-doctor/tsconfig.app.json",
+            "aot": true,
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "projects/his-doctor/src/favicon.ico",
+              "projects/his-doctor/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "projects/his-doctor/src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+			        "node_modules/datatables.net-dt/css/jquery.dataTables.css"
+            ],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js",              
+              "node_modules/datatables.net/js/jquery.dataTables.js"
             ]
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/his-doctor/src/environments/environment.ts",
+                  "with": "projects/his-doctor/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
                 }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
+              ]
             }
-          },
-          "defaultConfiguration": "production"
+          }
         },
         "serve": {
-          "builder": "@angular/build:dev-server",
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "his-doctor:build",
+            "proxyConfig": "projects/his-doctor/src/proxy.conf.json"
+          },
           "configurations": {
             "production": {
-              "buildTarget": "dragndrop:build:production"
-            },
-            "development": {
-              "buildTarget": "dragndrop:build:development"
+              "browserTarget": "his-doctor:build:production"
             }
-          },
-          "defaultConfiguration": "development"
+          }
         },
         "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "his-doctor:build"
+          }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "tsconfig.spec.json",
+            "main": "projects/his-doctor/src/test.ts",
+            "polyfills": "projects/his-doctor/src/polyfills.ts",
+            "tsConfig": "projects/his-doctor/tsconfig.spec.json",
+            "karmaConfig": "projects/his-doctor/karma.conf.js",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              "projects/his-doctor/src/favicon.ico",
+              "projects/his-doctor/src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "projects/his-doctor/src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/his-doctor/tsconfig.app.json",
+              "projects/his-doctor/tsconfig.spec.json",
+              "projects/his-doctor/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
             ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/his-doctor/e2e/protractor.conf.js",
+            "devServerTarget": "his-doctor:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "his-doctor:serve:production"
+            }
           }
         }
       }
-    }
+    }	
+  },
+  "defaultProject": "his-doctor",
+  "cli": {
+    "analytics": "84b399eb-7fee-41ff-8a18-22d9baad3bba"
   }
 }

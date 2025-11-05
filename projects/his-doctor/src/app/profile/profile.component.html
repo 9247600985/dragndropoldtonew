@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="jumbotron light-blue">
+        <h2 class="text-white"><a routerLink="/login"> <i class='fas fa-arrow-left text-white'></i></a> {{title}}</h2>
+      </div>
+    </div>
+  </div>
+
+  <div class="scrollableDiv">
+    <div class="row" *ngIf="isFromProfile()">
+      <div class="col-12 profiles">
+        <app-patient-profiles (ProfileSelectEvent)="makeprofileSelected($event)" ></app-patient-profiles>
+        <div class="addNewProfile">
+          <a href='#!' (click)="addNewProfile($event)">
+            <i *ngIf="addProfSelected==true" class="fas fa-check-circle text-light-blue"></i>
+            <i class="fa fa-plus"></i>
+          <p>Add New</p>
+        </a>
+        </div>
+      </div>
+    </div>
+  <form [formGroup]="form">
+  <div class="row">
+
+      <div class="form-group col-md-6 offset-md-3" align='center'>
+        <img [src]='url' class='img-thumbnail' (click)="triggerFileEvent()" />
+
+      </div>
+      <div class="form-group col-lg-6 col-md-12">
+        <label for="firstName">First Name</label>
+        <input type="text" formControlName="PatientTrno" [hidden]='true' />
+        <input type="text" formControlName="Mobile" [hidden]='true' />
+        <input type="text" formControlName="FirstName" placeholder='First name' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.FirstName.errors }" />
+                <div *ngIf="submitted && f.FirstName.errors" class="invalid-feedback">
+                    <div class='text-danger' *ngIf="f.FirstName.errors.required">This field is required</div>
+                </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12">
+        <label for="lastName">Last Name</label>
+        <input type="text" formControlName="LastName" placeholder='Last name' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.LastName.errors }" />
+                <div *ngIf="submitted && f.LastName.errors" class="invalid-feedback">
+                    <div class='text-danger' *ngIf="f.LastName.errors.required">This field is required</div>
+                </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12">
+        <label for="dob">Date of birth</label>
+        <input type="date" placeholder="dd/mm/yyyy" [max]="maxDate | date:'yyyy-MM-dd'" formControlName="Dob" class="form-control" (change)="calculateAge()" [ngClass]="{ 'is-invalid': submitted && f.Dob.errors }" />
+        <div *ngIf="submitted && f.Dob.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.Dob.errors.required">This field is required</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12 d-none">
+        <label for="Age">Age</label>
+        <input type="text" formControlName="Age" class="form-control" />
+      </div>
+      <div class='form-group col-lg-6 col-md-12'>
+        <label for='Gender'>Gender</label>
+        <select formControlName="Gender" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Gender.errors }">
+          <option value="" selected disabled>Choose Gender</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+          <option value="O">Others</option>
+      </select>
+      <div *ngIf="submitted && f.Gender.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.Gender.errors.required">This field is required</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12">
+        <label for="bloodGroup">Blood Group</label>
+        <select formControlName="bloodGroup" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.bloodGroup.errors }">
+          <option value=''>Choose Blood Group</option>
+          <option *ngFor='let item of bloodGroups' value='{{item.id}}'>{{item.name}}</option>
+        </select>
+        <div *ngIf="submitted && f.bloodGroup.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.bloodGroup.errors.required">Blood group is required</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12">
+        <label for="Email">Email</label>
+        <input type="text" formControlName="Email" placeholder='Email' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Email.errors }" />
+        <div *ngIf="submitted && f.Email.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.Email.errors.required">Email is required</div>
+          <div class='text-danger' *ngIf="f.Email.errors.email">Email must be a valid email address</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12">
+        <label for="Relation">Relation</label>
+        <select formControlName="Relation" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.Relation.errors }">
+          <option value="" selected disabled>Choose Relation</option>
+          <option *ngFor="let item of $Relations" value="{{item.Relation_Id}}">{{item.Relation_Desc | titlecase}}</option>
+      </select>
+        <div *ngIf="submitted && f.Relation.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.Relation.errors.required">This is required</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12" *ngIf="stateData.isFromProfile" >
+        <label for="city">City</label>
+        <input type="text" formControlName="city" placeholder='City' class="form-control" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+        <div *ngIf="submitted && f.city.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.city.errors.required">City is required</div>
+      </div>
+      </div>
+      <div class="form-group col-lg-6 col-md-12" *ngIf="stateData.isFromProfile">
+        <label for="country">Country</label>
+        <select formControlName="country" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.country.errors }">
+          <option value=''>Choose Country</option>
+          <option *ngFor='let item of countries' value='{{item.countryId}}'>{{item.countryName}}</option>
+        </select>
+        <div *ngIf="submitted && f.country.errors" class="invalid-feedback">
+          <div class='text-danger' *ngIf="f.country.errors.required">Country is required</div>
+      </div>
+      </div>
+      <div class="form-group col-md-12">
+        <label for=''></label>
+        <button class="btn yellow form-control" (click)="onSubmit()" >{{btnSubmit}}</button>
+        <button class="btn btn-danger form-control" [disabled]="!form.value.PatientTrno" [hidden]='true' *ngIf="isFromProfile()" (click)="deleteProfile()">Delete</button>
+      </div>
+  </div>
+  </form>
+</div>
+  <!--<app-image-cropper (actionEvent)="doImageAction($event)"></app-image-cropper>-->
+</div>
+<!--<app-camera-options [title]="'Upload Profile Photo'" (actionEvent)="doImageOptionAction($event)"></app-camera-options>-->

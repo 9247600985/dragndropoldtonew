@@ -1,0 +1,77 @@
+<div class="container-fluid">
+  <div class="login">
+    <div class='gradient'></div>
+      <div id="demo" class="carousel slide" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./assets/images/slide.jpg" alt="Los Angeles">
+            </div>
+            <div class="carousel-item">
+              <img src="./assets/images/slide1.jpg" alt="Chicago">
+            </div>
+          </div>
+        </div>
+    <div class='header'>
+      <div>
+        <img src="./assets/images/logo.png" height="50">
+          <h4 class='text-white'>{{loginHdrDesc | translate }}</h4>
+          <p class='text-white'>{{loginHdrDescInfo | translate }}</p>
+      </div>
+      </div>
+    <div class="col-sm-12 loginDiv">
+      <div class="form-group mobileDiv">
+        <select class="" [(ngModel)]="currentCountryCd" (change)='changeCountry($event)'>
+          <option value="+{{country.mobile_code}}" *ngFor="let country of countryCodeList">+{{country.mobile_code}}</option>
+          </select>
+      <input type="number" [(ngModel)]="mobileNo" class="form-control" maxlength="10" id="userNum" autocomplete='off'
+      placeholder="{{loginMobileText | translate }}" (keyup)="checkMobile($event)" />
+      <button type='button' class='icon' (click)="sendOTP()" disabled>
+        
+        <fa-icon id="enterBtn" class="yellow" [icon]="icons.faChevronRight"></fa-icon>
+        <!-- <i id="enterBtn" class="fa fa-chevron-right yellow"></i> -->
+      </button>
+    </div>
+    <div class="form-group passwordDiv">
+        <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" placeholder="Enter OTP" autocomplete='off' (blur)="checkOTP($event)" (keyup)="checkOTP($event)" id="userPassword" />
+        <fa-icon  *ngIf='fieldTextType' [icon]="icons.faEye" (click)="togglePassword()"></fa-icon>
+        <fa-icon *ngIf='!fieldTextType' [icon]="icons.faEyeSlash" (click)="togglePassword()"></fa-icon>
+        <!-- <i class="fa " [ngClass]="{'fa-eye-slash': !fieldTextType, 'fa-eye': fieldTextType}" (click)="togglePassword()"></i> -->
+      </div>
+      <div class="text-white text-right forgot" (click)="forgotPassword()">Forgot Password</div>
+      <div class="form-group submitDiv">
+          <button type="button" class="btn form-control yellow" (click)="login()" id="authenticate">Log In</button>
+        </div>
+  </div>
+  <div class="col-sm-12 register" *ngIf="showRegister">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="First name" id="firstName"/>
+      </div>
+      <div class="form-group">
+          <input type="text" class="form-control" placeholder="Last name" id="lastName"/>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="User name" id="userName"/>
+          </div>
+          <div class="form-group">
+            <input type="date" class="form-control" placeholder="dd-MM-yyyy" id="dob"/>
+          </div>
+          <div class="form-group password">
+              <input [type]="fieldTextType ? 'text' : 'password'" class="form-control" placeholder="Password" id="userPwd"/>
+              <i class="fa " [ngClass]="{'fa-eye-slash': !fieldTextType, 'fa-eye': fieldTextType}" (click)="togglePassword()"></i>
+            </div>
+            <div class="form-group col-sm-4 gender" [ngClass]="{'white': gender=='M'}" (click)="toggleGender('M')">
+                <i class="fa fa-mars text-white"></i> Male
+              </div>
+              <div class="form-group col-sm-4 gender" [ngClass]="{'white': gender=='F'}" (click)="toggleGender('F')">
+                  <i class="fa fa-venus text-white"></i> Female
+                </div>
+                <div class="form-group col-sm-4 gender" [ngClass]="{'white': gender=='O'}" (click)="toggleGender('O')">
+                    <i class="fa fa-transgender text-white"></i> Others
+                  </div>
+                  <div class="form-group">
+                      <button type="button" class="btn btn-danger form-control" (click)="doRegister()">Register</button>
+                    </div>
+    </div>
+  </div>
+</div>
+<!--<app-alert [id]="callerId" [message]="message" (actionEvent)="doAlertAction($event)" *ngIf="message !== ''"></app-alert>-->

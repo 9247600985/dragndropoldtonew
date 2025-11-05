@@ -1,0 +1,66 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class='light-blue text-white'>SECTION ID</th>
+                        <th class='light-blue text-white'>SECTION NAME</th>
+                        <th class="d-none">DEPTCODE</th>
+                        <th class='light-blue text-white'>DEPARTMENT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of deptSections" (click)='getRowDetails($event, item)'>
+                        <td>{{item.SECTIONID}}</td>
+                        <td>{{item.SECTIONNAME}}</td>
+                        <td class='d-none'>{{item.DEPTCODE}}</td>
+                        <td>{{item.DEPTNAME}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label class="control-label">Section Id</label>
+                    <input type='text' class="form-control" [(ngModel)]="section.SECTIONID" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label class="control-label">Section Name</label>
+                    <input type='text' class="form-control" [(ngModel)]="section.SECTIONNAME" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label class="control-label">Department</label>
+                    <select class="form-control" [(ngModel)]="section.DEPTCODE">
+                        <option value=''>Choose Department</option>
+                        <option *ngFor='let dept of departments' value='{{dept.DEPTCODE}}'>{{dept.DEPTNAME | titlecase}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <label class="control-label">Department</label>
+                    <div class="">
+                        <label for='active'>
+                            <input type="radio" checked id='active' name='status' value='0' [(ngModel)]="section.STATUS" /> Active
+                        </label>
+                        <label for='Inactive'>
+                            <input type="radio" id='Inactive' name='status' value='1' [(ngModel)]="section.STATUS" /> Inactive
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12">
+                    <button type="button" class="btn btn-secondary" (click)='onSubmit($event)'>{{btnName | titlecase}}</button>
+                    <button type="reset" #clear class="btn btn-secondary">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

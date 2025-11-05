@@ -1,0 +1,78 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8 scrollableDiv">
+            <!-- <input type="text" class="float-right" [(ngModel)]="searchTem" placeholder="Type to search..." />  -->
+            <table class="table table-bordered table-striped f-12">
+                <thead>
+                    <tr>
+                        <td class="light-blue text-white">Department Code</td>
+                        <td class="light-blue text-white">Department Name</td>
+                        <td class="light-blue text-white">Status</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of departments" (dblclick)='getRowData($event, item)'>
+                        <td>{{item.DEPTCODE}}</td>
+                        <td>{{item.DEPTNAME}}</td>
+                        <td>{{item.STATUS}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-4">
+            <form #f="ngForm" name="form" (ngSubmit)='submitForm()'>
+                <div class="row">
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">Department Id</label>
+                        <div class="">
+                            <input type="text" class="form-control"
+                            [(ngModel)]="department.DEPTCODE"
+                            name='deptCode'
+                            autocomplete="off"
+                            #deptCode='ngModel'
+                            [ngClass]="{'is-invalid':!deptCode.valid && deptCode.touched}"
+                            required
+                            />
+                            <div class="text-danger" *ngIf="!deptCode.valid && deptCode.touched">
+                                Department code is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">Department Name</label>
+                        <div class="">
+                            <input type="text" class="form-control"
+                            [(ngModel)]="department.DEPTNAME"
+                            name='deptName'
+                            #deptName='ngModel'
+                            [ngClass]="{'is-invalid':!deptName.valid && deptName.touched}"
+                            autocomplete="off"
+                            required
+                            />
+                            <div class="text-danger" *ngIf="!deptName.valid && deptName.touched">
+                                Department Name is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <label class="control-label">Status</label>
+                        <div class="">
+                            <label for='rbA'>
+                                <input type="radio" id='rbA' name='status' value='A' checked [(ngModel)]="department.STATUS" /> Active
+                            </label>
+                            <label for='rbC'>
+                                <input type="radio" id='rbC' name='status' value='C' [(ngModel)]="department.STATUS" /> Inactive
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-12">
+                        <div class="">
+                            <button type="submit" [disabled]="!f.valid" class="mr-3 btn btn-lg btn-secondary">{{btnName | titlecase}}</button>
+                            <button type="reset" #clear class="btn btn-lg btn-secondary" (click)="btnName='Save'">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="container-fluid">
+  <div class="footer">
+      <ul class="nav nav-pills nav-justified">
+          <li class="nav-item">
+            <a class="nav-link " (click)="goToAction($event)">
+              <i class="fa fa-home text-dark-yellow"></i>
+              <p>Home</p>
+            </a>
+          </li>
+          <li class="nav-item" id="consult">
+            <a class="nav-link " (click)="goToConsult($event)">
+              <i class="fa fa-heartbeat text-red"></i>
+              <!-- <img src='../../assets/images/consult.png' /> -->
+              <p>Book Appointment</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " routerLink='/healthfiles' [state]="{routeId : {title:'u_per_files'}}" >
+              <i class="fa fa-address-card text-light-blue"></i>
+              <!-- <img src='../../assets/images/healthrecords.jpg' /> -->
+              <p>Health Files</p>
+            </a>
+          </li>
+        </ul>
+  </div>
+</div>

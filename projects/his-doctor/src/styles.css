@@ -1,0 +1,350 @@
+@import '~ngx-toastr/toastr.css';
+/*@import './assets/css/skin1.css';*/
+/* You can add global styles to this file, and also import other style files */
+
+h1, h2, h3, h4, h6, span, p, div, small, p, input, textarea, select, option, label, b, th, td, a, .text-muted
+{
+  color: #333333;
+  font-family: 'Poppins', sans-serif;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+  background-color: #efefef;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(0,0,0,.5);
+  -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
+.text-white{
+  color:#FFF !important;
+}
+
+.text-red{
+  color:#ea5959 !important;
+}
+
+.white{
+  background-color:#FFF !important;
+}
+
+.text-green{
+  color: #66bb6a !important;
+}
+
+.green, .btn-green
+{
+  background-color: #2fd07d !important;
+  border-color: #2fd07d !important;
+}
+
+.secondary-color
+{
+    background-color: #6c757d;
+}
+
+.light-blue
+{
+  background: #6C8FEE !important;
+  border-color: #6C8FEE !important;
+}
+
+.text-light-blue{
+  color:#6C8FEE !important;
+}
+
+.btn-green, .btn-indigo-blue, .btn-light-green
+{
+  box-shadow:0 0px 10px 0px rgba(0,0,0,.4) !important;
+}
+
+.active-control{
+  background: #ffe8af !important;
+}
+
+.yellow{
+  /* background: linear-gradient(60deg,#F8D058,#FFF57D); */
+  background: #F7C851 !important;
+  border-color: #F7C851 !important;
+}
+
+.blue{
+  background: linear-gradient(60deg,#26c6da,#00acc1);
+}
+
+.green-gradient{
+  background: linear-gradient(60deg,#66bb6a,#43a047);
+}
+
+.red{
+  background: linear-gradient(60deg,#ef5350,#e53935);
+}
+
+.indigo{
+  background: linear-gradient(60deg,#ab47bc,#8e24aa);
+}
+
+.justify-content-center
+{
+  justify-content: center;
+}
+.footer
+{
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 0px 10px 0px rgba(0,0,0,.09);
+  z-index: 999;
+}
+
+.footer .justify-content-center
+{
+  justify-content: space-between !important;
+}
+
+.footer .nav .nav-item a{
+  padding: 15px;
+  color: #fff;
+  font-size: 12px;
+  /* font-weight: 600; */
+  text-decoration: none;
+  outline: none;
+  outline-width: 0;
+  box-shadow: none;
+}
+
+input.form-control, select.form-control{
+  font-size: 15px;
+  height: 4rem;
+  /* line-break: 4 !important; */
+  border-radius: 5px;
+  padding:0 15px;
+  font-weight: 600;
+  outline:none !important;
+  outline-width:0 !important;
+  box-shadow:none !important;
+}
+
+textarea.form-control{
+  font-size: 15px;
+  /* line-break: 4 !important; */
+  height:4rem !important;
+  border-radius: 5px;
+  padding:0 15px;
+  font-weight: 600;
+  outline:none !important;
+  outline-width:0 !important;
+  box-shadow:none !important;
+}
+
+.badge-primary
+{
+    color: #999 !important;
+    background-color: #efefef !important;
+    padding: 5px !important;
+    border-radius: 3px !important;
+}
+
+.btn-default, .btn-default:active, .btn-default:focus
+{
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: #333333 !important;
+}
+
+.btn-default:focus
+{
+  background: rgba(0,0,0,.145) !important;
+}
+
+.scrollableDiv
+{
+    position: relative;
+    display: block;
+    overflow-y: auto;
+    height: 85vh;
+    overflow-x: hidden;
+    padding-bottom: 150px;
+}
+
+.col-12
+{
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+
+.jumbotron
+{
+  margin:0 !important;
+  color: #333333;
+  padding: 1rem 1rem !important;
+  /* padding-left:15px !important;
+  padding-right:15px !important; */
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  box-shadow: 0px 0px 15px 0px rgba(0,0,0,.4);
+}
+
+.jumbotron a, label, .btn
+{
+  font-size: 12px !important;
+    color: #333333;
+}
+
+.jumbotron a i
+{
+  font-size: 20px !important;
+    color: #333333;
+    margin-right: 15px;
+}
+
+.modal-backdrop
+{
+  z-index: 0 !important;
+}
+
+.sticky
+{
+  position: sticky !important;
+}
+
+.nav>li>a:hover, .nav>li>a:focus
+{
+  background-color: transparent !important;
+}
+
+.text-danger
+{
+  font-size: 12px !important;
+}
+
+/* toggle switch materialize type */
+
+.tgl {
+  display: none;
+}
+.tgl, .tgl:after, .tgl:before, .tgl *, .tgl *:after, .tgl *:before, .tgl + .tgl-btn {
+  box-sizing: border-box;
+}
+.tgl::-moz-selection, .tgl:after::-moz-selection, .tgl:before::-moz-selection, .tgl *::-moz-selection, .tgl *:after::-moz-selection, .tgl *:before::-moz-selection, .tgl + .tgl-btn::-moz-selection {
+  background: none;
+}
+.tgl::selection, .tgl:after::selection, .tgl:before::selection, .tgl *::selection, .tgl *:after::selection, .tgl *:before::selection, .tgl + .tgl-btn::selection {
+  background: none;
+}
+.aHand{
+  cursor: pointer;
+}
+.tgl + .tgl-btn {
+  outline: 0;
+  display: block;
+  width: 4em;
+  height: 2em;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.tgl + .tgl-btn:after, .tgl + .tgl-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 50%;
+  height: 100%;
+}
+.tgl + .tgl-btn:after {
+  left: 0;
+}
+.tgl + .tgl-btn:before {
+  display: none;
+}
+.tgl:checked + .tgl-btn:after {
+  left: 50%;
+}
+
+.tgl-light + .tgl-btn {
+  background: #f0f0f0;
+  border-radius: 2em;
+  padding: 2px;
+  -webkit-transition: all .4s ease;
+  transition: all .4s ease;
+}
+.tgl-light + .tgl-btn:after {
+  border-radius: 50%;
+  background: #fff;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+}
+.tgl-light:checked + .tgl-btn {
+  /* background: #269BFF; */
+  background: rgba(0,0,0,.145);
+}
+
+/* end of toggle switch materialize type */
+
+.toast-error
+{
+  background-color:#e57373 !important;
+}
+
+.toast-success{
+  background-color: #3bb878 !important;
+}
+
+.f-12
+{
+  font-size: 12px !important;
+}
+
+.f-15
+{
+  font-size: 15px !important;
+}
+
+.f-20
+{
+  font-size: 20px !important;
+}
+
+.toast-container .ngx-toastr
+{
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .145);
+}
+
+div.toast-title, div.toast-message
+{
+  color: white !important;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.table-bordered>thead>tr>th
+{
+  vertical-align: middle;
+}
+
+.table-bordered>tbody>tr>td, table tr td
+{
+  padding: 2px;
+}
+
+@media screen and (max-width:768px)
+{
+  .toast-container .ngx-toastr
+  {
+    position: fixed;
+    left: 2.5%;
+    width: 95%;
+    top: 8px;
+  }
+}
+
