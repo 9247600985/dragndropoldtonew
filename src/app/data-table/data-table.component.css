@@ -1,5 +1,0 @@
-table.dataTable tbody th, table.dataTable tbody td
-{
-    text-transform: capitalize;
-    font-size: 15px !important;
-}
